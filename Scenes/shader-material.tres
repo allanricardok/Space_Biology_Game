@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b6td3rjmy7mnq"]
+
+[ext_resource type="Shader" uid="uid://l44r1r7egc4b" path="res://Space_Biology_Game/Scripts/billboard_normal.gdshader" id="1_fw81t"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_fw81t")
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+shader_parameter/enable_y_billboard = true
+shader_parameter/x_tilt_factor = 0.5
