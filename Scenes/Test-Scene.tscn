@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://bea20r7wg2f50"]
+[gd_scene load_steps=213 format=3 uid="uid://bea20r7wg2f50"]
 
 [ext_resource type="PackedScene" path="res://Space_Biology_Game/Prefabs/Player.tscn" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://e3qik8x0ukse" path="res://Space_Biology_Game/Assets/Trees/bush_summer_2.png" id="2_e02ra"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://vq8q71yrd08r" path="res://Space_Biology_Game/Assets/Bushes/fern_summer_2.png" id="10_v3tf7"]
 [ext_resource type="Texture2D" uid="uid://dqk0xhycq4q6u" path="res://Space_Biology_Game/Assets/Bushes/fern_summer_1.png" id="11_4robn"]
 [ext_resource type="Texture2D" uid="uid://bfss4kk2gdmfv" path="res://Space_Biology_Game/Assets/Bushes/hedge_summer_1.png" id="12_tg351"]
+[ext_resource type="Script" uid="uid://g5i6jhi5dcxl" path="res://Space_Biology_Game/Scripts/collectible_plant.gd" id="13_4robn"]
 [ext_resource type="Texture2D" uid="uid://drpsktbgee2iu" path="res://Space_Biology_Game/Assets/Bushes/hedge_summer_2.png" id="13_dtofv"]
 [ext_resource type="Texture2D" uid="uid://dr2qvlggu8xxs" path="res://Space_Biology_Game/Assets/Bushes/round_bush_autumn_2.png" id="14_48a34"]
 [ext_resource type="Texture2D" uid="uid://6wrn5bjunkwu" path="res://Space_Biology_Game/Assets/Bushes/round_bush_summer_2.png" id="15_kxn87"]
@@ -68,6 +69,13 @@ roughness = 0.85
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rock"]
 albedo_color = Color(0.447059, 0.427451, 0.478431, 1)
 roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4robn"]
+albedo_color = Color(0.88, 0.2904, 0.2904, 1)
+roughness = 0.9
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lab_detect"]
+radius = 4.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_path"]
 albedo_color = Color(0.686275, 0.611765, 0.478431, 1)
@@ -129,18 +137,18 @@ shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4robn"]
-render_priority = 0
-shader = ExtResource("31_4robn")
-shader_parameter/albedo_texture = ExtResource("3_ijaws")
-shader_parameter/tint_color = Color(1, 1, 1, 1)
-shader_parameter/enable_y_billboard = true
-shader_parameter/x_tilt_factor = 0.5
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pkhnk"]
 render_priority = 0
 shader = ExtResource("31_4robn")
 shader_parameter/albedo_texture = ExtResource("6_jcxrx")
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+shader_parameter/enable_y_billboard = true
+shader_parameter/x_tilt_factor = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4robn"]
+render_priority = 0
+shader = ExtResource("31_4robn")
+shader_parameter/albedo_texture = ExtResource("3_ijaws")
 shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
@@ -153,6 +161,108 @@ shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_tg351"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dtofv"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_48a34"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kxn87"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t0f2h"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sg0b5"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pkhnk"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wc5ag"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rsnki"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_p8amu"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vj11v"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cb2bs"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3qxbm"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qu00w"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bkayi"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cmj26"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_p852y"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5lewk"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0rsv5"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kf023"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ouicf"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oo67l"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dmr5k"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_57u3w"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1gfus"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4oke3"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kcvan"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fwsw0"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qhsel"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wav3l"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_apo5i"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mfrxy"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uwdm1"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a1f2p"]
+radius = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cb2bs"]
 render_priority = 0
 shader = ExtResource("31_4robn")
@@ -160,6 +270,108 @@ shader_parameter/albedo_texture = ExtResource("11_4robn")
 shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qtnxr"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0wnfi"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1d1uc"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hogip"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wa6np"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dji5p"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1r7jb"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a7kov"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_axqpq"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3cmjl"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l1lmi"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cqthf"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wlync"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fqwr5"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w2kb7"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sda4m"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_obbrc"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k2jvb"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1gqhk"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0507s"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6kyed"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a5a16"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_my04u"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s2cux"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j6y0h"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_edafa"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1bbfa"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5lc3i"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2n0ax"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u7iku"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gh01n"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ansou"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5ykgj"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0pbhg"]
+radius = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bkayi"]
 render_priority = 0
@@ -210,6 +422,9 @@ shader_parameter/veins_intensity = 0.154000007315
 shader_parameter/veins_flow_speed = 0.35
 shader_parameter/pulse_speed = 1.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_k5sdo"]
+radius = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t0f2h"]
 render_priority = 0
 shader = ExtResource("28_cmj26")
@@ -227,6 +442,9 @@ shader_parameter/veins_intensity = 0.154000007315
 shader_parameter/veins_flow_speed = 0.35
 shader_parameter/pulse_speed = 1.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_kp8qc"]
+radius = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_apo5i"]
 render_priority = 0
 shader = ExtResource("31_4robn")
@@ -234,6 +452,9 @@ shader_parameter/albedo_texture = ExtResource("30_fiik7")
 shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g8b4v"]
+radius = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qtnxr"]
 render_priority = 0
@@ -243,11 +464,44 @@ shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_42skk"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yq5t3"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5vwa0"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_biuhu"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ub01d"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xpn2c"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0r01e"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nm36y"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h5t88"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i3qb3"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jt5v7"]
+radius = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_48a34"]
 render_priority = 0
 shader = ExtResource("28_cmj26")
 shader_parameter/albedo_texture = ExtResource("32_v3tf7")
-shader_parameter/tint_color = Color(1.8916494, 1.8916494, 1.8916494, 1)
+shader_parameter/tint_color = Color(2.805782, 2.805782, 2.805782, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
 shader_parameter/glow_color = Color(1.1773806, 0.8874281, 0, 1)
@@ -260,19 +514,14 @@ shader_parameter/veins_intensity = 0.154000007315
 shader_parameter/veins_flow_speed = 0.35
 shader_parameter/pulse_speed = 1.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwdm1"]
-render_priority = 0
-shader = ExtResource("31_4robn")
-shader_parameter/albedo_texture = ExtResource("32_v3tf7")
-shader_parameter/tint_color = Color(1, 1, 1, 1)
-shader_parameter/enable_y_billboard = true
-shader_parameter/x_tilt_factor = 0.5
+[sub_resource type="SphereShape3D" id="SphereShape3D_f8uh0"]
+radius = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxn87"]
 render_priority = 0
 shader = ExtResource("28_cmj26")
 shader_parameter/albedo_texture = ExtResource("33_4robn")
-shader_parameter/tint_color = Color(2.0331757, 2.0331757, 2.0331757, 1)
+shader_parameter/tint_color = Color(3.2368753, 3.2368753, 3.2368753, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
 shader_parameter/glow_color = Color(0.98168737, 0.95530653, 0.62897223, 1)
@@ -285,6 +534,65 @@ shader_parameter/veins_intensity = 0.154000007315
 shader_parameter/veins_flow_speed = 0.35
 shader_parameter/pulse_speed = 1.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_bvbi7"]
+radius = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwdm1"]
+render_priority = 0
+shader = ExtResource("31_4robn")
+shader_parameter/albedo_texture = ExtResource("32_v3tf7")
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+shader_parameter/enable_y_billboard = true
+shader_parameter/x_tilt_factor = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mossb"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0dc7y"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_isqqg"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0c3hf"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yjeq7"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_aaj10"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kfsti"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2hsy5"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y3f4x"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xvrds"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wm48v"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bwsrg"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nygdf"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a4a7e"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y24xr"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cq68o"]
+radius = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a1f2p"]
 render_priority = 0
 shader = ExtResource("31_4robn")
@@ -292,6 +600,48 @@ shader_parameter/albedo_texture = ExtResource("33_4robn")
 shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h1fdm"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1tax4"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4fjv7"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_e7fli"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uoepe"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lsc8i"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uj0fu"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_iybyo"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tm55k"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_axmup"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bysc1"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_olyco"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_epxkm"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qe164"]
+radius = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p852y"]
 render_priority = 0
@@ -310,6 +660,9 @@ shader_parameter/veins_intensity = 0.614000029165
 shader_parameter/veins_flow_speed = 0.35
 shader_parameter/pulse_speed = 1.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_1ohu7"]
+radius = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dtofv"]
 render_priority = 0
 shader = ExtResource("28_cmj26")
@@ -327,6 +680,9 @@ shader_parameter/veins_intensity = 0.614000029165
 shader_parameter/veins_flow_speed = 0.35
 shader_parameter/pulse_speed = 1.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_cgtit"]
+radius = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wav3l"]
 render_priority = 0
 shader = ExtResource("31_4robn")
@@ -335,6 +691,33 @@ shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_oq2p4"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dqj17"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_d2yi4"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3yqxt"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_heqay"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5xaqr"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4hx30"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k2lf7"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5u0ah"]
+radius = 3.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mfrxy"]
 render_priority = 0
 shader = ExtResource("31_4robn")
@@ -342,6 +725,21 @@ shader_parameter/albedo_texture = ExtResource("31_m1vhc")
 shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ub0wd"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qo56e"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ik7fp"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kpdv4"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j328k"]
+radius = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0rsv5"]
 render_priority = 0
@@ -478,6 +876,16 @@ material = SubResource("StandardMaterial3D_grass")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8857434, -28)
 size = Vector3(20, 3, 16)
 material = SubResource("StandardMaterial3D_rock")
+
+[node name="Lab" type="CSGBox3D" parent="Terrain_CSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.475743, -24.64069)
+size = Vector3(5.4938965, 3, 5.9228516)
+material = SubResource("StandardMaterial3D_4robn")
+
+[node name="LabArea" type="Area3D" parent="Terrain_CSG/Lab" groups=["lab"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain_CSG/Lab/LabArea"]
+shape = SubResource("SphereShape3D_lab_detect")
 
 [node name="Plateau2" type="CSGBox3D" parent="Terrain_CSG"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.284964, -0.16211843, -28)
@@ -2214,18 +2622,10 @@ texture = ExtResource("16_t0f2h")
 [node name="Trees Biome2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.618668, -3.8146973e-06, -27.444174)
 
-[node name="Tree2" type="Sprite3D" parent="Trees Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1881561, 2.9909203, 8.263385)
-material_override = SubResource("ShaderMaterial_4robn")
-modulate = Color(10.307568, 8.745102, 16.557436, 1)
-pixel_size = 0.006
-billboard = 2
-shaded = true
-alpha_cut = 2
-texture = ExtResource("3_ijaws")
+[node name="coconut" type="Node3D" parent="Trees Biome2"]
 
-[node name="Tree5" type="Sprite3D" parent="Trees Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1236987, 2.5165918, 15.060318)
+[node name="coco" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, -13.0628605)
 material_override = SubResource("ShaderMaterial_pkhnk")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.005
@@ -2234,8 +2634,792 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("6_jcxrx")
 
-[node name="Bush2" type="Sprite3D" parent="Trees Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6280565, 0.9157722, 14.306256)
+[node name="coco2" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, -4.5115795)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco3" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, 3.7180882)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco4" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, 11.378941)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco5" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, 19.836607)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco6" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, 28.387888)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco7" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, 36.617554)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco11" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.940163, 2.5165918, -7.2964)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco12" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.940163, 2.5165918, 1.2548828)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco13" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.940163, 2.5165918, 9.48455)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco14" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.940163, 2.5165918, 17.145403)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco15" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.940163, 2.5165918, 25.60307)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco16" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.940163, 2.5165918, 34.15435)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco17" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.940163, 2.5165918, 42.384018)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco18" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.24169, 2.5165918, -10.735441)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco19" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.24169, 2.5165918, -2.1841602)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco20" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.24169, 2.5165918, 6.0455074)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco21" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.24169, 2.5165918, 13.70636)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco22" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.24169, 2.5165918, 22.164026)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco23" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.24169, 2.5165918, 30.715307)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco24" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.24169, 2.5165918, 38.944977)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco25" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.72068, 2.5165918, -7.0870495)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco26" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.72068, 2.5165918, 1.4642315)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco27" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.72068, 2.5165918, 9.693899)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco28" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.72068, 2.5165918, 17.354752)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco29" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.72068, 2.5165918, 25.812418)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco30" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.72068, 2.5165918, 34.3637)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco31" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.2707, 2.5165918, 47.479816)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco32" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.034248, 2.5165918, -11.380457)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco33" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.034248, 2.5165918, -2.829176)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco34" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.034248, 2.5165918, 5.4004917)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco35" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.034248, 2.5165918, 13.061344)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco36" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.034248, 2.5165918, 21.51901)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco37" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.034248, 2.5165918, 30.070293)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco43" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.153793, 2.5165918, 1.6955128)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco44" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.153793, 2.5165918, 10.153177)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco45" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.153793, 2.5165918, 18.70446)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco46" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.585308, 2.5165937, 6.389385)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco47" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.754757, 2.5165937, 33.90541)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco48" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.235535, 8.23017, 55.55843)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco49" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.235535, 8.23017, -29.227842)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco55" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14146423, 2.1398768, -54.310143)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco50" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.803818, 5.835433, -24.015825)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco51" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.033836, 8.289474, -36.823532)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco38" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.190445, 2.5165918, -17.525988)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco39" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5685844, 2.5165918, -20.93516)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco40" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.112934, 2.5165918, -25.976366)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco41" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.666534, 2.5165918, -15.711092)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco42" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.256882, 2.5165918, -8.481104)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco8" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, 44.278408)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco9" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, 51.84265)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco10" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.49788, 2.5165918, 59.50351)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco52" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.893013, 2.5165918, 120.49817)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco53" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.883675, 2.5165918, 114.86098)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="coco54" type="Sprite3D" parent="Trees Biome2/coconut"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.089745, 5.4730244, 114.22821)
+material_override = SubResource("ShaderMaterial_pkhnk")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.005
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("6_jcxrx")
+
+[node name="tree" type="Node3D" parent="Trees Biome2"]
+
+[node name="tree" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2777176, 2.9909203, 5.1906357)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree2" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.482281, 2.9909203, 15.488491)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree14" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.89788, 2.9909203, -15.974466)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree15" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.45433, 7.075902, -23.622911)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree16" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.289154, 7.8002014, -26.997496)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree17" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.48085, 7.8002014, -35.177116)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree18" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.075718, 4.404567, -43.235214)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree19" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.042713, 7.5716124, -58.163292)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree20" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.042713, 9.049825, -46.71543)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree21" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.429337, 9.514826, -31.402765)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree22" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.305305, 11.548651, -41.231613)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree23" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.219727, 10.963027, -47.690643)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree24" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.161964, 9.1901655, -59.48147)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree3" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5402985, 2.9909203, 27.96474)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree4" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.946087, 2.9909203, 11.09552)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree5" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.42305, 2.9909184, 41.821213)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree6" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.09858, 6.9694843, 55.966698)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree7" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.845078, 6.92527, 64.700905)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree8" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6338234, 6.567293, 47.24186)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree9" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.212616, 9.53529, 56.50299)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree10" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.182709, 9.53529, 84.10049)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree11" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.983406, 5.9441566, 91.60251)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree12" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.50431, 5.9770846, 75.262474)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree13" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.50431, 2.7390327, 109.971306)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="ferns" type="Node3D" parent="Trees Biome2"]
+
+[node name="fernP" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27998734, 0.9157722, -0.20735931)
 material_override = SubResource("ShaderMaterial_vj11v")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.002
@@ -2244,15 +3428,1168 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("10_v3tf7")
 
-[node name="Bush3" type="Sprite3D" parent="Trees Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.613145, 0.90488374, 14.711723)
-material_override = SubResource("ShaderMaterial_cb2bs")
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP/CollectArea"]
+shape = SubResource("SphereShape3D_tg351")
+
+[node name="fernP2" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1266022, 0.9157722, 0.44298553)
+material_override = SubResource("ShaderMaterial_vj11v")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.002
 billboard = 2
 shaded = true
 alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP2/CollectArea"]
+shape = SubResource("SphereShape3D_dtofv")
+
+[node name="fernP3" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7382393, 0.9157722, 2.533661)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP3" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP3/CollectArea"]
+shape = SubResource("SphereShape3D_48a34")
+
+[node name="fernP4" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.469631, 0.9157722, -2.2242622)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP4" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP4/CollectArea"]
+shape = SubResource("SphereShape3D_kxn87")
+
+[node name="fernP5" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.548977, 0.9157722, -7.7589283)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP5" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP5/CollectArea"]
+shape = SubResource("SphereShape3D_t0f2h")
+
+[node name="fernP6" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4397163, 0.9157722, -10.1206)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP6" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP6/CollectArea"]
+shape = SubResource("SphereShape3D_sg0b5")
+
+[node name="fernP7" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3748322, 0.9157722, -10.199621)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP7" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP7/CollectArea"]
+shape = SubResource("SphereShape3D_pkhnk")
+
+[node name="fernP8" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0044594, 0.9157722, -11.878168)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP8" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP8/CollectArea"]
+shape = SubResource("SphereShape3D_wc5ag")
+
+[node name="fernP9" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8709183, 0.9157722, -10.890318)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP9" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP9/CollectArea"]
+shape = SubResource("SphereShape3D_rsnki")
+
+[node name="fernP10" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0166702, 0.91577125, -17.121576)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP10" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP10/CollectArea"]
+shape = SubResource("SphereShape3D_p8amu")
+
+[node name="fernP11" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9833298, 0.91577125, -20.121576)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP11" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP11/CollectArea"]
+shape = SubResource("SphereShape3D_vj11v")
+
+[node name="fernP12" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.420788, 0.91577125, -18.608156)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP12" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP12/CollectArea"]
+shape = SubResource("SphereShape3D_cb2bs")
+
+[node name="fernP13" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.491577, 0.91577125, -14.679659)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP13" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP13/CollectArea"]
+shape = SubResource("SphereShape3D_3qxbm")
+
+[node name="fernP14" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.128967, 0.9157703, -19.345621)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP14" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP14/CollectArea"]
+shape = SubResource("SphereShape3D_qu00w")
+
+[node name="fernP15" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.09745, 7.937359, -37.79638)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP15" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP15/CollectArea"]
+shape = SubResource("SphereShape3D_bkayi")
+
+[node name="fernP16" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.22175, 8.386734, -36.573334)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP16" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP16/CollectArea"]
+shape = SubResource("SphereShape3D_cmj26")
+
+[node name="fernP17" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.006927, 8.861746, -41.370773)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP17" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP17/CollectArea"]
+shape = SubResource("SphereShape3D_p852y")
+
+[node name="fernP18" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.25486, 8.54372, -49.752525)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP18" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP18/CollectArea"]
+shape = SubResource("SphereShape3D_5lewk")
+
+[node name="fernP19" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.693916, 7.458744, -50.014984)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP19" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP19/CollectArea"]
+shape = SubResource("SphereShape3D_0rsv5")
+
+[node name="fernP20" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.890816, 8.181612, -59.91864)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP20" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP20/CollectArea"]
+shape = SubResource("SphereShape3D_kf023")
+
+[node name="fernP21" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.725723, 8.350831, -55.187737)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP21" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP21/CollectArea"]
+shape = SubResource("SphereShape3D_ouicf")
+
+[node name="fernP23" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.780399, 7.4340334, -39.303444)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP23" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP23/CollectArea"]
+shape = SubResource("SphereShape3D_oo67l")
+
+[node name="fernP24" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.151443, 7.4340334, -32.479836)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP24" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP24/CollectArea"]
+shape = SubResource("SphereShape3D_dmr5k")
+
+[node name="fernP25" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.901741, 9.115675, -38.21746)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP25" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP25/CollectArea"]
+shape = SubResource("SphereShape3D_57u3w")
+
+[node name="fernP26" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.57225, 2.3576756, -26.712538)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP26" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP26/CollectArea"]
+shape = SubResource("SphereShape3D_1gfus")
+
+[node name="fernP27" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.57225, 3.1983757, -64.10125)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP27" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP27/CollectArea"]
+shape = SubResource("SphereShape3D_4oke3")
+
+[node name="fernP28" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3035088, 2.7229452, -57.97592)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP28" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP28/CollectArea"]
+shape = SubResource("SphereShape3D_kcvan")
+
+[node name="fernP29" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.83873, 2.7229452, 43.521164)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP29" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP29/CollectArea"]
+shape = SubResource("SphereShape3D_fwsw0")
+
+[node name="fernP30" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.938171, 8.566908, 63.409447)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP30" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP30/CollectArea"]
+shape = SubResource("SphereShape3D_qhsel")
+
+[node name="fernP31" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.047989, 9.692967, 75.73178)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP31" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP31/CollectArea"]
+shape = SubResource("SphereShape3D_wav3l")
+
+[node name="fernP32" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.812065, 2.0473516, 57.95083)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP32" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP32/CollectArea"]
+shape = SubResource("SphereShape3D_apo5i")
+
+[node name="fernP33" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.527275, 2.0473516, 56.820488)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP33" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP33/CollectArea"]
+shape = SubResource("SphereShape3D_mfrxy")
+
+[node name="fernP34" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.01935, 0.8483527, 51.113583)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP34" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP34/CollectArea"]
+shape = SubResource("SphereShape3D_uwdm1")
+
+[node name="fernP22" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.79287, 9.271316, -52.092316)
+material_override = SubResource("ShaderMaterial_vj11v")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("10_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernP22" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern P"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernP22/CollectArea"]
+shape = SubResource("SphereShape3D_a1f2p")
+
+[node name="fernG" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.558117, 1.2573556, 2.8005428)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
 texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG/CollectArea"]
+shape = SubResource("SphereShape3D_qtnxr")
+
+[node name="fernG35" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.719448, 1.2573556, 12.706775)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG35" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG35/CollectArea"]
+shape = SubResource("SphereShape3D_qtnxr")
+
+[node name="fernG2" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8657, 1.2573556, 13.508491)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG2/CollectArea"]
+shape = SubResource("SphereShape3D_0wnfi")
+
+[node name="fernG3" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.499176, 1.2573556, 37.383266)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG3" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG3/CollectArea"]
+shape = SubResource("SphereShape3D_1d1uc")
+
+[node name="fernG19" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5475006, 1.2573556, -12.263544)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG19" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG19/CollectArea"]
+shape = SubResource("SphereShape3D_hogip")
+
+[node name="fernG20" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13988113, 1.2573556, -14.831289)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG20" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG20/CollectArea"]
+shape = SubResource("SphereShape3D_wa6np")
+
+[node name="fernG21" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1544571, 1.2573556, -38.05027)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG21" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG21/CollectArea"]
+shape = SubResource("SphereShape3D_dji5p")
+
+[node name="fernG22" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0871239, 1.2573556, -61.74061)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG22" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG22/CollectArea"]
+shape = SubResource("SphereShape3D_1r7jb")
+
+[node name="fernG23" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.669857, 1.2573556, -58.788017)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG23" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG23/CollectArea"]
+shape = SubResource("SphereShape3D_a7kov")
+
+[node name="fernG24" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.938694, 7.601451, -54.16243)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG24" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG24/CollectArea"]
+shape = SubResource("SphereShape3D_axqpq")
+
+[node name="fernG25" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.868214, 8.650669, -39.8096)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG25" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG25/CollectArea"]
+shape = SubResource("SphereShape3D_3cmjl")
+
+[node name="fernG26" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5307, 9.508491, -54.479958)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG26" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG26/CollectArea"]
+shape = SubResource("SphereShape3D_l1lmi")
+
+[node name="fernG27" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.775963, 8.578091, -55.35164)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG27" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG27/CollectArea"]
+shape = SubResource("SphereShape3D_cqthf")
+
+[node name="fernG28" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.31156, 9.901109, -45.865723)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG28" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG28/CollectArea"]
+shape = SubResource("SphereShape3D_wlync")
+
+[node name="fernG29" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.259514, 5.4951496, -29.589632)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG29" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG29/CollectArea"]
+shape = SubResource("SphereShape3D_fqwr5")
+
+[node name="fernG30" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.59497, 5.4951496, -26.250559)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG30" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG30/CollectArea"]
+shape = SubResource("SphereShape3D_w2kb7")
+
+[node name="fernG31" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.197884, 4.1987844, -25.95967)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG31" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG31/CollectArea"]
+shape = SubResource("SphereShape3D_sda4m")
+
+[node name="fernG32" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.788223, 1.0594592, -0.7046776)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG32" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG32/CollectArea"]
+shape = SubResource("SphereShape3D_obbrc")
+
+[node name="fernG33" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.915512, 1.0594592, 22.32425)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG33" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG33/CollectArea"]
+shape = SubResource("SphereShape3D_k2jvb")
+
+[node name="fernG34" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6308365, 1.0594592, 25.442757)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG34" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG34/CollectArea"]
+shape = SubResource("SphereShape3D_1gqhk")
+
+[node name="fernG4" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.434853, 1.2573546, 35.499897)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG4" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG4/CollectArea"]
+shape = SubResource("SphereShape3D_0507s")
+
+[node name="fernG5" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.735695, 1.2573546, 38.570843)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG5" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG5/CollectArea"]
+shape = SubResource("SphereShape3D_6kyed")
+
+[node name="fernG6" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.245964, 1.2573546, 40.8174)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG6" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG6/CollectArea"]
+shape = SubResource("SphereShape3D_a5a16")
+
+[node name="fernG7" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.466347, 6.1266937, 50.964287)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG7" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG7/CollectArea"]
+shape = SubResource("SphereShape3D_my04u")
+
+[node name="fernG8" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.856781, 6.1266937, 56.453224)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG8" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG8/CollectArea"]
+shape = SubResource("SphereShape3D_s2cux")
+
+[node name="fernG9" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.649673, 2.4117842, 53.70998)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG9" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG9/CollectArea"]
+shape = SubResource("SphereShape3D_j6y0h")
+
+[node name="fernG10" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.230042, 9.514284, 67.990456)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG10" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG10/CollectArea"]
+shape = SubResource("SphereShape3D_edafa")
+
+[node name="fernG11" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.485062, 11.157226, 70.16844)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG11" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG11/CollectArea"]
+shape = SubResource("SphereShape3D_1bbfa")
+
+[node name="fernG12" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1150475, 11.22295, 70.47238)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG12" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG12/CollectArea"]
+shape = SubResource("SphereShape3D_5lc3i")
+
+[node name="fernG13" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1415634, 11.460766, 73.46618)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG13" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG13/CollectArea"]
+shape = SubResource("SphereShape3D_2n0ax")
+
+[node name="fernG14" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1415634, 11.460766, 90.61074)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG14" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG14/CollectArea"]
+shape = SubResource("SphereShape3D_u7iku")
+
+[node name="fernG15" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.113358, 10.59073, 90.28724)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG15" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG15/CollectArea"]
+shape = SubResource("SphereShape3D_gh01n")
+
+[node name="fernG16" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.03257, 10.163168, 94.6947)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG16" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG16/CollectArea"]
+shape = SubResource("SphereShape3D_ansou")
+
+[node name="fernG17" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.907516, 9.427679, 95.772026)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG17" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG17/CollectArea"]
+shape = SubResource("SphereShape3D_5ykgj")
+
+[node name="fernG18" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.801933, 7.981454, 100.92022)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG18" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG18/CollectArea"]
+shape = SubResource("SphereShape3D_0pbhg")
 
 [node name="Trees Biome3" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.316986, -1.9073486e-06, 42.846577)
@@ -4147,6 +6484,15 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource("30_fiik7")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/TulipSpecial" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Tulip Special"
+rarity = "Rara"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/TulipSpecial/CollectArea"]
+shape = SubResource("SphereShape3D_k5sdo")
+
 [node name="RoseSpecial" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6645713, 1.0140573, -31.685757)
 material_override = SubResource("ShaderMaterial_t0f2h")
@@ -4156,6 +6502,15 @@ billboard = 2
 double_sided = false
 alpha_cut = 2
 texture = ExtResource("34_tg351")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/RoseSpecial" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Rose Special"
+rarity = "Rara"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/RoseSpecial/CollectArea"]
+shape = SubResource("SphereShape3D_kp8qc")
 
 [node name="Tulip" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.049772, 1.0140572, -7.618019)
@@ -4167,6 +6522,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("30_fiik7")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Tulip" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Tulip"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Tulip/CollectArea"]
+shape = SubResource("SphereShape3D_g8b4v")
+
 [node name="Rose" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.72858, 1.0140572, 1.7053337)
 material_override = SubResource("ShaderMaterial_qtnxr")
@@ -4176,6 +6539,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("34_tg351")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Rose" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Rose"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Rose/CollectArea"]
+shape = SubResource("SphereShape3D_42skk")
 
 [node name="Tulip2" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.103771, 1.0140572, 9.083485)
@@ -4187,6 +6558,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("30_fiik7")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Tulip2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Tulip"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Tulip2/CollectArea"]
+shape = SubResource("SphereShape3D_yq5t3")
+
 [node name="Rose2" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.992281, 1.0140572, 5.3321724)
 material_override = SubResource("ShaderMaterial_qtnxr")
@@ -4196,6 +6575,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("34_tg351")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Rose2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Rose"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Rose2/CollectArea"]
+shape = SubResource("SphereShape3D_5vwa0")
 
 [node name="Tulip3" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.900304, 1.0140572, -9.087833)
@@ -4207,6 +6594,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("30_fiik7")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Tulip3" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Tulip"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Tulip3/CollectArea"]
+shape = SubResource("SphereShape3D_biuhu")
+
 [node name="Rose3" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.278116, 1.0140572, 2.8137894)
 material_override = SubResource("ShaderMaterial_qtnxr")
@@ -4216,6 +6611,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("34_tg351")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Rose3" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Rose"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Rose3/CollectArea"]
+shape = SubResource("SphereShape3D_ub01d")
 
 [node name="Tulip4" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5474195, 1.0140572, -6.866787)
@@ -4227,6 +6630,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("30_fiik7")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Tulip4" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Tulip"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Tulip4/CollectArea"]
+shape = SubResource("SphereShape3D_xpn2c")
+
 [node name="Rose4" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.793175, 1.0140572, -11.834892)
 material_override = SubResource("ShaderMaterial_qtnxr")
@@ -4236,6 +6647,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("34_tg351")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Rose4" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Rose"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Rose4/CollectArea"]
+shape = SubResource("SphereShape3D_0r01e")
 
 [node name="Tulip5" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.395023, 5.640627, -12.036644)
@@ -4247,6 +6666,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("30_fiik7")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Tulip5" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Tulip"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Tulip5/CollectArea"]
+shape = SubResource("SphereShape3D_nm36y")
+
 [node name="Rose5" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.03084, 1.0140572, -28.909351)
 material_override = SubResource("ShaderMaterial_qtnxr")
@@ -4256,6 +6683,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("34_tg351")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Rose5" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Rose"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Rose5/CollectArea"]
+shape = SubResource("SphereShape3D_h5t88")
 
 [node name="Rose6" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.322807, 10.106355, 0.85128784)
@@ -4267,6 +6702,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("34_tg351")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Rose6" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Rose"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Rose6/CollectArea"]
+shape = SubResource("SphereShape3D_i3qb3")
+
 [node name="Rose7" type="Sprite3D" parent="Flowers Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.400288, 8.84229, 19.188961)
 material_override = SubResource("ShaderMaterial_qtnxr")
@@ -4277,11 +6720,19 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("34_tg351")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome1/Rose7" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Rose"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome1/Rose7/CollectArea"]
+shape = SubResource("SphereShape3D_jt5v7")
+
 [node name="Flowers Biome2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.618668, -3.8146973e-06, -27.444174)
 
-[node name="Flower7" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8592877, 1.0140572, 35.797367)
+[node name="SunFSpecial" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.769272, 10.504172, 98.01184)
 material_override = SubResource("ShaderMaterial_48a34")
 modulate = Color(0.72067994, 0.7052, 0.86, 1)
 pixel_size = 0.002
@@ -4290,18 +6741,17 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource("32_v3tf7")
 
-[node name="Flower8" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015595436, 1.0140572, 35.797367)
-material_override = SubResource("ShaderMaterial_uwdm1")
-modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
-pixel_size = 0.002
-billboard = 2
-shaded = true
-alpha_cut = 2
-texture = ExtResource("32_v3tf7")
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunFSpecial" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F Special"
+rarity = "Rara"
+is_harvestable = false
 
-[node name="Flower9" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8592877, 1.0140572, 37.766357)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunFSpecial/CollectArea"]
+shape = SubResource("SphereShape3D_f8uh0")
+
+[node name="yelloSpecial" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.840992, 13.202778, -4.8346004)
 material_override = SubResource("ShaderMaterial_kxn87")
 modulate = Color(0.72067994, 0.7052, 0.86, 1)
 pixel_size = 0.002
@@ -4310,8 +6760,324 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource("33_4robn")
 
-[node name="Flower10" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015595436, 1.0140572, 37.766357)
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/yelloSpecial" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello Special"
+rarity = "Rara"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/yelloSpecial/CollectArea"]
+shape = SubResource("SphereShape3D_bvbi7")
+
+[node name="yelloSpecial2" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.820934, 3.3014545, 1.1535435)
+material_override = SubResource("ShaderMaterial_kxn87")
+modulate = Color(0.72067994, 0.7052, 0.86, 1)
+pixel_size = 0.002
+billboard = 2
+double_sided = false
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/yelloSpecial2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello Special"
+rarity = "Rara"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/yelloSpecial2/CollectArea"]
+shape = SubResource("SphereShape3D_bvbi7")
+
+[node name="SunF" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.649113, 1.0140572, 26.283733)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF/CollectArea"]
+shape = SubResource("SphereShape3D_mossb")
+
+[node name="SunF2" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.419758, 1.0140572, 21.99759)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF2/CollectArea"]
+shape = SubResource("SphereShape3D_0dc7y")
+
+[node name="SunF3" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.256474, 1.0140581, 23.890768)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF3" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF3/CollectArea"]
+shape = SubResource("SphereShape3D_isqqg")
+
+[node name="SunF4" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.27932, 1.0140581, 27.650507)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF4" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF4/CollectArea"]
+shape = SubResource("SphereShape3D_0c3hf")
+
+[node name="SunF5" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.935513, 1.0140581, 23.598186)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF5" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF5/CollectArea"]
+shape = SubResource("SphereShape3D_yjeq7")
+
+[node name="SunF6" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.613663, 1.0140581, 31.39)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF6" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF6/CollectArea"]
+shape = SubResource("SphereShape3D_aaj10")
+
+[node name="SunF7" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.99376, 1.0140581, 37.79242)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF7" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF7/CollectArea"]
+shape = SubResource("SphereShape3D_kfsti")
+
+[node name="SunF8" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3435783, 1.0140581, 32.462864)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF8" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF8/CollectArea"]
+shape = SubResource("SphereShape3D_2hsy5")
+
+[node name="SunF9" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.03212, 7.0829782, 52.30999)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF9" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF9/CollectArea"]
+shape = SubResource("SphereShape3D_y3f4x")
+
+[node name="SunF10" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4937096, 8.334207, 56.74415)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF10" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF10/CollectArea"]
+shape = SubResource("SphereShape3D_xvrds")
+
+[node name="SunF11" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8861656, 10.232381, 63.874893)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF11" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF11/CollectArea"]
+shape = SubResource("SphereShape3D_wm48v")
+
+[node name="SunF12" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.553707, 11.383394, 76.72379)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF12" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF12/CollectArea"]
+shape = SubResource("SphereShape3D_bwsrg")
+
+[node name="SunF13" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.11718, 11.383394, 80.62978)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF13" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF13/CollectArea"]
+shape = SubResource("SphereShape3D_nygdf")
+
+[node name="SunF14" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.234894, 10.853856, 79.709694)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF14" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF14/CollectArea"]
+shape = SubResource("SphereShape3D_a4a7e")
+
+[node name="SunF15" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.114029, 10.61932, 76.23589)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF15" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF15/CollectArea"]
+shape = SubResource("SphereShape3D_y24xr")
+
+[node name="SunF16" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.27089, 0.7501459, 58.19371)
+material_override = SubResource("ShaderMaterial_uwdm1")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("32_v3tf7")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/SunF16" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Sun F"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/SunF16/CollectArea"]
+shape = SubResource("SphereShape3D_cq68o")
+
+[node name="Yello" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.644684, 1.0140572, -3.6086903)
 material_override = SubResource("ShaderMaterial_a1f2p")
 modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
 pixel_size = 0.002
@@ -4319,6 +7085,266 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello/CollectArea"]
+shape = SubResource("SphereShape3D_h1fdm")
+
+[node name="Yello2" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4847832, 1.0140572, -35.484535)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello2/CollectArea"]
+shape = SubResource("SphereShape3D_1tax4")
+
+[node name="Yello3" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.698063, 1.0140572, -22.52674)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello3" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello3/CollectArea"]
+shape = SubResource("SphereShape3D_4fjv7")
+
+[node name="Yello4" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5896835, 1.0140572, -22.815626)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello4" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello4/CollectArea"]
+shape = SubResource("SphereShape3D_e7fli")
+
+[node name="Yello5" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1142387, 1.0140572, -25.33837)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello5" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello5/CollectArea"]
+shape = SubResource("SphereShape3D_uoepe")
+
+[node name="Yello6" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.027153, 1.0140581, -14.65489)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello6" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello6/CollectArea"]
+shape = SubResource("SphereShape3D_lsc8i")
+
+[node name="Yello7" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.027153, 8.6225195, -33.379364)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello7" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello7/CollectArea"]
+shape = SubResource("SphereShape3D_uj0fu")
+
+[node name="Yello8" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.01925, 8.6225195, -34.71373)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello8" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello8/CollectArea"]
+shape = SubResource("SphereShape3D_iybyo")
+
+[node name="Yello9" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.579369, 8.122249, -31.913176)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello9" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello9/CollectArea"]
+shape = SubResource("SphereShape3D_tm55k")
+
+[node name="Yello10" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.171963, 8.122248, -43.653282)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello10" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello10/CollectArea"]
+shape = SubResource("SphereShape3D_axmup")
+
+[node name="Yello11" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.270828, 7.578763, -61.64308)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello11" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello11/CollectArea"]
+shape = SubResource("SphereShape3D_bysc1")
+
+[node name="Yello12" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.022285, 0.91913104, 23.853113)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello12" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello12/CollectArea"]
+shape = SubResource("SphereShape3D_olyco")
+
+[node name="Yello13" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.181046, 0.91913104, 56.22999)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello13" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello13/CollectArea"]
+shape = SubResource("SphereShape3D_epxkm")
+
+[node name="Yello14" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3185654, 11.187436, 76.58892)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello14" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello14/CollectArea"]
+shape = SubResource("SphereShape3D_qe164")
+
+[node name="Yello15" type="Sprite3D" parent="Flowers Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.4906, 3.3527737, 5.2941647)
+material_override = SubResource("ShaderMaterial_a1f2p")
+modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
+pixel_size = 0.002
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("33_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello15" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Yello"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello15/CollectArea"]
+shape = SubResource("SphereShape3D_qe164")
 
 [node name="Flowers Biome3" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.316986, -1.9073486e-06, 42.846577)
@@ -4333,6 +7359,15 @@ double_sided = false
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBGSpecial" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg Special"
+rarity = "Rara"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBGSpecial/CollectArea"]
+shape = SubResource("SphereShape3D_1ohu7")
+
 [node name="LiriSpecial" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.982807, 1.0140572, 46.590565)
 material_override = SubResource("ShaderMaterial_dtofv")
@@ -4342,6 +7377,15 @@ billboard = 2
 double_sided = false
 alpha_cut = 2
 texture = ExtResource("31_m1vhc")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriSpecial" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Liri Special"
+rarity = "Rara"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriSpecial/CollectArea"]
+shape = SubResource("SphereShape3D_cgtit")
 
 [node name="LiriumBG" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.270523, 1.0140572, 10.520084)
@@ -4353,6 +7397,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG/CollectArea"]
+shape = SubResource("SphereShape3D_oq2p4")
+
 [node name="LiriumBG6" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.28205, 1.0140572, 18.46748)
 material_override = SubResource("ShaderMaterial_wav3l")
@@ -4362,6 +7414,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG6" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG6/CollectArea"]
+shape = SubResource("SphereShape3D_dqj17")
 
 [node name="LiriumBG7" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.556694, 1.0140572, 4.4985275)
@@ -4373,6 +7433,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG7" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG7/CollectArea"]
+shape = SubResource("SphereShape3D_d2yi4")
+
 [node name="LiriumBG8" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.633377, 1.0140572, 4.57605)
 material_override = SubResource("ShaderMaterial_wav3l")
@@ -4382,6 +7450,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG8" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG8/CollectArea"]
+shape = SubResource("SphereShape3D_3yqxt")
 
 [node name="LiriumBG2" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.612114, 1.0140572, 33.82188)
@@ -4393,6 +7469,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG2/CollectArea"]
+shape = SubResource("SphereShape3D_heqay")
+
 [node name="LiriumBG3" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.84064, 1.0140572, 19.543804)
 material_override = SubResource("ShaderMaterial_wav3l")
@@ -4402,6 +7486,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG3" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG3/CollectArea"]
+shape = SubResource("SphereShape3D_5xaqr")
 
 [node name="LiriumBG4" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.654253, 1.0140572, -28.898321)
@@ -4413,6 +7505,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG4" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG4/CollectArea"]
+shape = SubResource("SphereShape3D_4hx30")
+
 [node name="LiriumBG9" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.72115, 1.0140572, -27.936878)
 material_override = SubResource("ShaderMaterial_wav3l")
@@ -4422,6 +7522,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG9" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG9/CollectArea"]
+shape = SubResource("SphereShape3D_k2lf7")
 
 [node name="LiriumBG5" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.115147, 8.0001545, 10.189487)
@@ -4433,6 +7541,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("5_pn3ar")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriumBG5" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Lirium Bg"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriumBG5/CollectArea"]
+shape = SubResource("SphereShape3D_5u0ah")
+
 [node name="Liri" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.477108, 1.0140572, 41.785007)
 material_override = SubResource("ShaderMaterial_mfrxy")
@@ -4442,6 +7558,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("31_m1vhc")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/Liri" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Liri"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/Liri/CollectArea"]
+shape = SubResource("SphereShape3D_ub0wd")
 
 [node name="Liri2" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.303062, 1.0140572, 46.274494)
@@ -4453,6 +7577,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("31_m1vhc")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/Liri2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Liri"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/Liri2/CollectArea"]
+shape = SubResource("SphereShape3D_qo56e")
+
 [node name="Liri3" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.156715, 1.0140572, 38.588886)
 material_override = SubResource("ShaderMaterial_mfrxy")
@@ -4462,6 +7594,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("31_m1vhc")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/Liri3" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Liri"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/Liri3/CollectArea"]
+shape = SubResource("SphereShape3D_ik7fp")
 
 [node name="Liri4" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.667145, 1.0140572, 1.3455849)
@@ -4473,6 +7613,14 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("31_m1vhc")
 
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/Liri4" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Liri"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/Liri4/CollectArea"]
+shape = SubResource("SphereShape3D_kpdv4")
+
 [node name="Liri5" type="Sprite3D" parent="Flowers Biome3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.120752, 1.0140572, -23.715147)
 material_override = SubResource("ShaderMaterial_mfrxy")
@@ -4482,6 +7630,14 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("31_m1vhc")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/Liri5" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Liri"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/Liri5/CollectArea"]
+shape = SubResource("SphereShape3D_j328k")
 
 [node name="Others Biome1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.95732, 0, -42.90004)
@@ -5220,7 +8376,107 @@ texture = ExtResource("24_cb2bs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.618668, -3.8146973e-06, -27.444174)
 
 [node name="RockWood4" type="Sprite3D" parent="Others Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.567281, 1.22267, 28.62667)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.56728, 1.3786484, 28.62667)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood5" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.874443, 1.3786484, 29.893661)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood6" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.058647, 1.3786484, 30.532097)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood7" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8508987, 1.3786474, 20.27921)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood8" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.817177, 1.3786474, 1.5750675)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood9" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0916672, 1.3786474, -9.98559)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood10" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.4949, 1.3786474, -21.392584)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood11" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.41768, 1.3786474, 51.439774)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood12" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.70038, 1.3786474, 106.827705)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood13" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.545975, 1.3786474, 122.20683)
+material_override = SubResource("ShaderMaterial_dmr5k")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("21_rsnki")
+
+[node name="RockWood14" type="Sprite3D" parent="Others Biome2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3529053, 12.197037, 80.66961)
 material_override = SubResource("ShaderMaterial_dmr5k")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.003

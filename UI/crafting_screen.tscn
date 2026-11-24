@@ -1,0 +1,157 @@
+[gd_scene load_steps=3 format=3 uid="uid://gnl01v1j7fl5"]
+
+[ext_resource type="Script" path="res://Space_Biology_Game/UI/crafting_screen.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_craft"]
+bg_color = Color(0.0784314, 0.109804, 0.141176, 0.968627)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25098, 0.490196, 0.588235, 0.901961)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 16
+
+[node name="CraftingScreen" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(760, 450)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_craft")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderBox" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HeaderBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Laboratório de Síntese de Cartas de Campo"
+
+[node name="CloseButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HeaderBox"]
+custom_minimum_size = Vector2(85, 32)
+layout_mode = 2
+text = "✕ Fechar"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BodyBox" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="LeftBox" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="InvTitleLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/LeftBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Seu Inventário (Amostras de Campo):"
+
+[node name="InvCountLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/LeftBox"]
+modulate = Color(0.7, 0.72, 0.75, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Disponíveis: 0 amostras"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/LeftBox"]
+custom_minimum_size = Vector2(300, 220)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="InventoryList" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/LeftBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="VSeparator" type="VSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox"]
+layout_mode = 2
+
+[node name="RightBox" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="BenchTitleLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Bancada de Criação (3 Slots):"
+
+[node name="Slot1_Container" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox"]
+layout_mode = 2
+
+[node name="Slot1_Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox/Slot1_Container"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "[ Slot 1: Material ]
++ Clique em uma Samambaia (Fern) à esquerda"
+
+[node name="Slot2_Container" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox"]
+layout_mode = 2
+
+[node name="Slot2_Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox/Slot2_Container"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "[ Slot 2: Essência 1 ]
++ Clique em uma Flor/Essência à esquerda"
+
+[node name="Slot3_Container" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox"]
+layout_mode = 2
+
+[node name="Slot3_Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox/Slot3_Container"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "[ Slot 3: Essência 2 ]
++ Clique em uma Flor/Essência diferente"
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Selecione 1 Material e 2 Essências distintas."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CraftButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/BodyBox/RightBox"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+disabled = true
+text = "✨ Criar Carta"
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HintLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+modulate = Color(0.7, 0.72, 0.75, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Clique em um slot preenchido para devolver o item à seleção. [ESC] para fechar."
+horizontal_alignment = 1
