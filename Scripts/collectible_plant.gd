@@ -6,6 +6,7 @@ class_name CollectiblePlant
 @export var plant_name: String = ""
 @export_multiline var description: String = "Amostra biológica coletada no planeta."
 @export_enum("Comum", "Incomum", "Rara", "Lendária") var rarity: String = "Comum"
+@export var unlocks_dictionary: bool = false
 
 @export_group("Mecânicas de Campo")
 @export var is_harvestable: bool = true
@@ -100,6 +101,12 @@ func collect_essence() -> void:
 		parent_sprite.modulate = _original_modulate * Color(0.45, 0.45, 0.45, 1.0)
 
 	collected_state_changed.emit(true)
+
+	# Se essa amostra desbloqueia o dicionário de cartas, ativa a flag no inventário
+	if unlocks_dictionary:
+		var inv: Node = get_node_or_null("/root/InventoryManager")
+		if inv != null and inv.has_method("set_dictionary_unlocked"):
+			inv.set_dictionary_unlocked(true)
 
 ## Restaura o estado da planta após o cooldown
 func reset_cooldown() -> void:

@@ -297,6 +297,12 @@ func _refresh_slots_display() -> void:
 				recipe["mana_cost"]
 			], Color(1.0, 0.88, 0.35))
 
+			# Aviso se ja possui esta carta
+			var inv: Node = get_node_or_null("/root/InventoryManager")
+			if inv != null and inv.has_method("has_card_owned"):
+				if inv.has_card_owned(recipe["card_name"]):
+					_show_status("Aviso: Voce ja possui esta carta!", Color(1.0, 0.6, 0.3))
+
 ## Normaliza nomes para comparação de receitas (sem números, pontuação ou maiúsculas)
 func _normalize_key(raw_name: String) -> String:
 	var s: String = raw_name.to_lower().replace(" ", "").replace("_", "").replace("-", "")

@@ -14,14 +14,24 @@ signal closed()
 @onready var close_button: Button = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HeaderBox/CloseButton
 @onready var total_label: Label = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/FooterBox/TotalLabel
 
+@onready var tab_inventory: Button = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabBox/TabInventory
+@onready var tab_dictionary: Button = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabBox/TabDictionary
+@onready var dictionary_scroll_container: ScrollContainer = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/DictionaryScrollContainer
+@onready var dictionary_items_container: VBoxContainer = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/DictionaryScrollContainer/DictionaryItemsContainer
+
 var is_open: bool = false
 var _status_notice: String = ""
+var _current_tab: String = "inventario"  # "inventario" ou "dicionario"
 
 func _ready() -> void:
 	visible = false
 	is_open = false
 	if close_button:
 		close_button.pressed.connect(close)
+	if tab_inventory:
+		tab_inventory.pressed.connect(func(): _switch_tab("inventario"))
+	if tab_dictionary:
+		tab_dictionary.pressed.connect(func(): _switch_tab("dicionario"))
 
 ## Alterna entre aberto e fechado
 func toggle() -> void:
@@ -34,7 +44,28 @@ func open() -> void:
 	is_open = true
 	visible = true
 	_status_notice = ""
-	_refresh_items()
+
+	# Regra de visibilidade da aba Dicionário (checa a flag OU se o item já está na mochila)
+	var inventory: Node = get_node_or_null("/root/InventoryManager")
+	var unlocked: bool = false
+	if inventory != null:
+		unlocked = inventory.dictionary_unlocked
+		if not unlocked:
+			for item in inventory.get_items():
+				if item.get("plant_name", "").to_lower().contains("dicion"):
+					unlocked = true
+					inventory.set_dictionary_unlocked(true) # Sincroniza e salva a flag
+					break
+
+	if tab_dictionary:
+		tab_dictionary.visible = unlocked
+
+	if _current_tab == "dicionario" and not unlocked:
+		_current_tab = "inventario"
+
+	# Atualiza abas, containers e preenche os dados da aba atual
+	_switch_tab(_current_tab)
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	opened.emit()
 
@@ -43,6 +74,123 @@ func close() -> void:
 	visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	closed.emit()
+
+## Alterna entre as abas do inventário
+func _switch_tab(tab: String) -> void:
+	_current_tab = tab
+
+	var color_active: Color = Color(1.0, 0.88, 0.45)
+	var color_inactive: Color = Color(0.7, 0.72, 0.75)
+	if tab_inventory:
+		tab_inventory.modulate = color_active if tab == "inventario" else color_inactive
+	if tab_dictionary:
+		tab_dictionary.modulate = color_active if tab == "dicionario" else color_inactive
+
+	if items_container and items_container.get_parent() is ScrollContainer:
+		items_container.get_parent().visible = (tab == "inventario")
+	elif items_container:
+		items_container.visible = (tab == "inventario")
+
+	if dictionary_scroll_container:
+		dictionary_scroll_container.visible = (tab == "dicionario")
+
+	if tab == "inventario":
+		_refresh_items()
+	else:
+		_refresh_dictionary()
+
+## Desenha a aba Dicionário de Cartas com todas as receitas do jogo
+func _refresh_dictionary() -> void:
+	for child in dictionary_items_container.get_children():
+		child.queue_free()
+
+	var inventory: Node = get_node_or_null("/root/InventoryManager")
+
+	if title_label:
+		title_label.text = "Dicionário de Cartas (8 receitas)"
+
+	# Título da seção
+	var header: Label = Label.new()
+	header.text = "📖 DICIONÁRIO DE CARTAS (8 receitas no total)"
+	header.modulate = Color(0.85, 0.65, 1.0)
+	header.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	dictionary_items_container.add_child(header)
+
+	var sep: HSeparator = HSeparator.new()
+	dictionary_items_container.add_child(sep)
+
+	# Todas as 8 receitas do jogo (mesmas de crafting_screen.gd)
+	var recipes: Array[Dictionary] = [
+		{"card_name": "Salto Duplo", "effect": "Double Jump", "mana_cost": 1, "is_passive": false, "cooldown": 0.0, "material": "Fern", "essence1": "Sol", "essence2": "SolSpecial"},
+		{"card_name": "Cura Floral", "effect": "Heal 1 heart", "mana_cost": 3, "is_passive": false, "cooldown": 10.0, "material": "Fern", "essence1": "Rose", "essence2": "RoseSpecial"},
+		{"card_name": "Impulso Solar", "effect": "Jump 2x higher", "mana_cost": 0, "is_passive": true, "cooldown": 0.0, "material": "Fern", "essence1": "Sol", "essence2": "Yello"},
+		{"card_name": "Expansão Botânica", "effect": "Inventory add +10 spaces", "mana_cost": 0, "is_passive": true, "cooldown": 0.0, "material": "Fern", "essence1": "Tulip", "essence2": "TulipSpecial"},
+		{"card_name": "Fluxo Arcano", "effect": "Instant 3 mana", "mana_cost": 1, "is_passive": false, "cooldown": 10.0, "material": "Fern", "essence1": "Liri", "essence2": "Lirium"},
+		{"card_name": "Regeneração Rápida", "effect": "Mana recovers 2x faster", "mana_cost": 2, "is_passive": false, "cooldown": 10.0, "material": "Fern", "essence1": "Liri", "essence2": "Lirispecial"},
+		{"card_name": "Segunda Chance", "effect": "If all hearts are over, refill half", "mana_cost": 0, "is_passive": true, "cooldown": 0.0, "material": "Fern", "essence1": "Lirium", "essence2": "Liriumspecial"},
+		{"card_name": "Passo Veloz", "effect": "Speed 2x faster", "mana_cost": 0, "is_passive": true, "cooldown": 0.0, "material": "Fern", "essence1": "Yello", "essence2": "Yellospecial"},
+	]
+
+	for recipe in recipes:
+		var row: HBoxContainer = HBoxContainer.new()
+		row.add_theme_constant_override("separation", 8)
+
+		var card_name: String = recipe["card_name"]
+		var effect: String = recipe["effect"]
+		var mana_cost: int = recipe["mana_cost"]
+		var is_passive: bool = recipe["is_passive"]
+
+		# Tipo da carta
+		var type_str: String
+		if is_passive:
+			type_str = "[Passiva]"
+		else:
+			type_str = "[Ativa - %d Mana]" % mana_cost
+
+		# Receita
+		var recipe_str: String = "%s + %s + %s" % [recipe["material"], recipe["essence1"], recipe["essence2"]]
+
+		# Verifica se já possui
+		var owned: bool = false
+		if inventory != null and inventory.has_method("has_card_owned"):
+			owned = inventory.has_card_owned(card_name)
+
+		var status_tag: String = "[✓ Já Criada]" if owned else "[Não criada]"
+		var status_color: Color = Color(0.4, 0.95, 0.5) if owned else Color(0.65, 0.68, 0.72)
+
+		# Nome + Tipo
+		var name_lbl: Label = Label.new()
+		name_lbl.text = "%s %s" % [card_name, type_str]
+		name_lbl.modulate = Color(1.0, 0.88, 0.45)
+		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		name_lbl.custom_minimum_size = Vector2(180, 0)
+		row.add_child(name_lbl)
+
+		# Receita
+		var recipe_lbl: Label = Label.new()
+		recipe_lbl.text = recipe_str
+		recipe_lbl.modulate = Color(0.7, 0.85, 1.0)
+		recipe_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		recipe_lbl.custom_minimum_size = Vector2(160, 0)
+		row.add_child(recipe_lbl)
+
+		# Efeito
+		var effect_lbl: Label = Label.new()
+		effect_lbl.text = effect
+		effect_lbl.modulate = Color(0.9, 0.9, 0.95)
+		effect_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		effect_lbl.custom_minimum_size = Vector2(150, 0)
+		row.add_child(effect_lbl)
+
+		# Status de posse
+		var status_lbl: Label = Label.new()
+		status_lbl.text = status_tag
+		status_lbl.modulate = status_color
+		status_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		status_lbl.custom_minimum_size = Vector2(120, 0)
+		row.add_child(status_lbl)
+
+		dictionary_items_container.add_child(row)
 
 ## Reconstrói a lista visual de itens a partir do Autoload InventoryManager
 func _refresh_items() -> void:

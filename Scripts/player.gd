@@ -9,6 +9,7 @@ class_name Player
 @export var acceleration: float = 10.0
 @export var deceleration: float = 12.0
 @export var air_control: float = 3.0
+@export var double_jump_multiplier: float = 1.5 # 1.0 = mesma força | 1.5 = 50% mais forte no ar
 
 ## Configurações de Câmera
 @export_group("Câmera")
@@ -39,6 +40,9 @@ var _camera_initial_y: float = 0.0
 var _bob_timer: float = 0.0
 var _is_sprinting: bool = false
 
+# Controle de Salto Duplo
+var can_double_jump_card: bool = true
+
 # Sistema de proximidade e interação
 var _nearby_plants: Array[CollectiblePlant] = []
 var _current_target_plant: CollectiblePlant = null
@@ -47,12 +51,10 @@ var _nearby_lab: Area3D = null
 func _ready() -> void:
 	add_to_group("player")
 	_ensure_input_actions()
-	# Captura o cursor do mouse no início do jogo
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if camera:
 		_camera_initial_y = camera.position.y
 
-	# Conecta detecção de proximidade com áreas coletáveis
 	if proximity_detector:
 		proximity_detector.area_entered.connect(_on_proximity_area_entered)
 		proximity_detector.area_exited.connect(_on_proximity_area_exited)
@@ -70,7 +72,6 @@ func _is_any_ui_open() -> bool:
 func _unhandled_input(event: InputEvent) -> void:
 	# Alternar Inventário na tecla [I]
 	if event.is_action_pressed("inventory"):
-		# Se a janela de coleta ou laboratório estiver aberta, não abre o inventário por cima
 		if (collection_screen != null and collection_screen.is_modal_open) or (crafting_screen != null and crafting_screen.is_open):
 			return
 		if inventory_ui != null:
@@ -103,9 +104,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	# Controle da rotação da câmera com o mouse
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		# Giro horizontal (corpo todo gira no eixo Y)
 		rotate_y(-event.relative.x * mouse_sensitivity)
-		# Giro vertical (apenas a cabeça inclina no eixo X)
 		head.rotate_x(-event.relative.y * mouse_sensitivity)
 		head.rotation.x = clamp(
 			head.rotation.x,
@@ -120,7 +119,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-	# Clicar na tela quando o mouse estiver visível recaptura o cursor (se a UI não estiver aberta)
+	# Clicar na tela quando o mouse estiver visível recaptura o cursor
 	if event is InputEventMouseButton and event.pressed:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE and not _is_any_ui_open():
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -139,7 +138,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 func _physics_process(delta: float) -> void:
-	# Se a janela de coleta ou inventário estiver aberta, desacelera o player até parar
+	# Se alguma UI estiver aberta, desacelera o player até parar
 	if _is_any_ui_open():
 		if not is_on_floor():
 			velocity.y -= gravity * delta
@@ -151,46 +150,82 @@ func _physics_process(delta: float) -> void:
 	# 1. Aplica a gravidade
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	else:
+		# Reset do Salto Duplo quando toca o chão
+		can_double_jump_card = true
 
-	# 2. Pulo (com suporte a Salto Duplo)
+	# 2. Pulo (Espaço no chão pula normal; Espaço no ar valida e aciona a carta Salto Duplo)
+	var jump_mult: float = 1.65 if _has_passive_effect("Jump 2x higher") else 1.0
+	var current_jump_velocity: float = jump_velocity * jump_mult
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
-			velocity.y = jump_velocity
-			_double_jump_available = _has_passive_effect("Double Jump")
-		elif _double_jump_available:
-			velocity.y = jump_velocity
-			_double_jump_available = false
+			velocity.y = current_jump_velocity
+		else:
+			_try_trigger_double_jump(false)
 
 	# 3. Corrida (Sprint) com suporte a Passo Veloz
 	_is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()
 	var speed_mult: float = 2.0 if _has_passive_effect("Speed 2x faster") else 1.0
 	var current_speed: float = (sprint_speed if _is_sprinting else walk_speed) * speed_mult
 
+	# Atualiza nível de velocidade no Autoload baseado em Passo Veloz na mão
+	var stats: Node = get_node_or_null("/root/PlayerStats")
+	if stats != null and stats.has_method("set_speed_level"):
+		if _has_passive_effect("Speed 2x faster"):
+			stats.set_speed_level(5)
+		else:
+			stats.set_speed_level(3)
+
 	# 4. Vetor de entrada (WASD / Setas)
 	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	# Direção no espaço global baseada na orientação do player
 	var direction: Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	# 5. Aceleração / Desaceleração suave
 	var target_vel_x: float = direction.x * current_speed
 	var target_vel_z: float = direction.z * current_speed
-	var accel_rate: float
-
-	if is_on_floor():
-		accel_rate = acceleration if direction.length() > 0.0 else deceleration
-	else:
-		accel_rate = air_control
+	var accel_rate: float = (acceleration if direction.length() > 0.0 else deceleration) if is_on_floor() else air_control
 
 	velocity.x = lerp(velocity.x, target_vel_x, accel_rate * delta)
 	velocity.z = lerp(velocity.z, target_vel_z, accel_rate * delta)
 
 	move_and_slide()
 
-	# 6. Efeito de Head Bobbing (sensação física de passo)
+	# 6. Efeito de Head Bobbing
 	_handle_head_bob(delta, direction)
 
 	# 7. Atualiza alvo de proximidade para coleta
 	_update_proximity_target()
+
+## Executa o Salto Duplo validando se a carta existe na mão, se está no ar e se há mana
+func _try_trigger_double_jump(show_errors: bool = true) -> bool:
+	# Valida se a carta "Double Jump" realmente está equipada na mão
+	if not _has_card_effect_in_hand("Double Jump"):
+		return false
+
+	if is_on_floor():
+		if show_errors:
+			show_hud_message("Não é possível saltar duplo no chão!", Color(0.8, 0.8, 0.5))
+		return false
+
+	if not can_double_jump_card:
+		if show_errors:
+			show_hud_message("Salto Duplo já usado!", Color(0.8, 0.8, 0.5))
+		return false
+
+	var stats: Node = get_node_or_null("/root/PlayerStats")
+	if stats == null:
+		return false
+
+	if not stats.consume_mana(1):
+		if show_errors:
+			show_hud_message("Mana insuficiente!", Color(1.0, 0.35, 0.35))
+		return false
+
+	var jump_mult: float = 1.65 if _has_passive_effect("Jump 2x higher") else 1.0
+	velocity.y = jump_velocity * jump_mult * double_jump_multiplier
+	can_double_jump_card = false
+	show_hud_message("↑ Salto Duplo!", Color(0.8, 0.6, 1.0))
+	return true
 
 ## Prioriza o alvo mais próximo (Laboratório ou Planta de Campo)
 func _update_proximity_target() -> void:
@@ -206,7 +241,6 @@ func _update_proximity_target() -> void:
 			min_dist_sq = dist_sq
 			closest = plant
 
-	# Se estiver perto do Laboratório, avalia prioridade de proximidade
 	if _nearby_lab != null and is_instance_valid(_nearby_lab):
 		var lab_dist_sq: float = p_pos.distance_squared_to(_nearby_lab.global_position)
 		if min_dist_sq == INF or lab_dist_sq <= min_dist_sq:
@@ -265,11 +299,9 @@ func _handle_head_bob(delta: float, _direction: Vector3) -> void:
 		var bob_offset: float = sin(_bob_timer * TAU) * bob_amplitude
 		camera.position.y = lerp(camera.position.y, _camera_initial_y + bob_offset, 15.0 * delta)
 	else:
-		# Retorna suavemente ao centro quando parado ou no ar
 		camera.position.y = lerp(camera.position.y, _camera_initial_y, 10.0 * delta)
 		_bob_timer = 0.0
 
-## Garante que as ações de entrada existam no projeto, prevenindo erros se não estiverem configuradas
 func _ensure_input_actions() -> void:
 	var bindings: Dictionary = {
 		"move_forward": [KEY_W, KEY_UP],
@@ -280,7 +312,8 @@ func _ensure_input_actions() -> void:
 		"sprint": [KEY_SHIFT],
 		"interact": [KEY_E],
 		"inventory": [KEY_I],
-		"debug_damage": [KEY_K]
+		"debug_damage": [KEY_K],
+		"reset_save": [KEY_F9],
 	}
 
 	for action_name in bindings.keys():
@@ -313,7 +346,7 @@ func _activate_selected_card() -> void:
 		return
 	var hand: Array = inv.get_hand_cards()
 	var idx: int = inv.selected_hand_index
-	if idx >= hand.size():
+	if idx < 0 or idx >= hand.size():
 		return
 	var card: Dictionary = hand[idx]
 
@@ -329,17 +362,28 @@ func _activate_selected_card() -> void:
 		return
 
 	var mana_cost: int = card.get("mana_cost", 0)
+	var effect: String = card.get("effect", "")
 	var stats: Node = get_node_or_null("/root/PlayerStats")
 	if stats == null:
 		return
 
-	if not stats.consume_mana(mana_cost):
-		if status_hud != null:
-			status_hud.trigger_mana_fail(idx)
+	# Salto Duplo tem validação própria (precisa estar no ar e não ter sido gasto)
+	if effect == "Double Jump":
+		_try_trigger_double_jump(true)
 		return
 
-	# Aplica efeito da carta ativa
-	var effect: String = card.get("effect", "")
+	# Valida vida cheia antes de gastar mana na Cura Floral
+	if effect == "Heal 1 heart" and stats.current_hearts >= stats.max_hearts:
+		show_hud_message("Vida já está cheia!", Color(0.8, 0.8, 0.5))
+		return
+
+	# Consome mana para as outras cartas ativas
+	if not stats.consume_mana(mana_cost):
+		if status_hud != null and status_hud.has_method("trigger_mana_fail"):
+			status_hud.trigger_mana_fail(idx)
+		show_hud_message("Mana insuficiente!", Color(1.0, 0.35, 0.35))
+		return
+
 	var cooldown: float = card.get("cooldown", 0.0)
 	print("[Player] Ativou carta: %s" % card.get("plant_name", ""))
 
@@ -353,32 +397,20 @@ func _activate_selected_card() -> void:
 		"Mana recovers 2x faster":
 			stats.activate_fast_regen()
 			show_hud_message("⚡ Regeneração Rápida (6s)!", Color(0.5, 1.0, 0.7))
-		"Double Jump":
-			_enable_double_jump()
-			show_hud_message("↑ Salto Duplo!", Color(0.8, 0.6, 1.0))
 		_:
 			show_hud_message("Carta usada!", Color(1.0, 0.9, 0.5))
 
-	# Aplica cooldown (NÃO remove a carta)
 	inv.set_hand_card_cooldown(idx, cooldown)
 	hand_updated_notify()
 
-## Chama hand_updated via InventoryManager para atualizar HUD
 func hand_updated_notify() -> void:
 	var inv: Node = get_node_or_null("/root/InventoryManager")
 	if inv != null:
 		inv.hand_updated.emit()
 
-## Exibe uma mensagem flutuante na HUD (ou reutiliza o mana_warning_label)
 func show_hud_message(msg: String, color: Color = Color.WHITE) -> void:
 	if status_hud != null and status_hud.has_method("show_message"):
 		status_hud.show_message(msg, color)
-
-## ─── Double Jump ──────────────────────────────────────────────────────────────
-var _double_jump_available: bool = false
-
-func _enable_double_jump() -> void:
-	_double_jump_available = true
 
 ## Verifica se um efeito passivo está na mão atualmente
 func _has_passive_effect(effect: String) -> bool:
@@ -387,6 +419,12 @@ func _has_passive_effect(effect: String) -> bool:
 		return false
 	return inv.has_passive_in_hand(effect)
 
-## Registra o player no grupo para que PlayerStats possa encontrá-lo
-func _ready_group() -> void:
-	add_to_group("player")
+## Verifica se qualquer carta (ativa ou passiva) com este efeito está equipada na mão
+func _has_card_effect_in_hand(effect: String) -> bool:
+	var inv: Node = get_node_or_null("/root/InventoryManager")
+	if inv == null:
+		return false
+	for card in inv.get_hand_cards():
+		if card.get("effect", "") == effect:
+			return true
+	return false

@@ -12,6 +12,9 @@ var current_hearts: int = 5:
 	set(value):
 		current_hearts = clamp(value, 0, max_hearts)
 		hearts_changed.emit(current_hearts, max_hearts)
+		var inv: Node = get_node_or_null("/root/InventoryManager")
+		if inv != null and inv.has_method("save_game"):
+			inv.save_game()
 
 ## 2. Velocidade (Speed Icons: padrão 3 de 5)
 @export var max_speed_level: int = 5
@@ -36,6 +39,16 @@ var _fast_regen_timer: float = 0.0   ## segundos restantes de Regeneração Ráp
 
 func _ready() -> void:
 	effective_max_mana = max_mana
+# Verificar passivas carregadas no InventoryManager
+	var inv: Node = get_node_or_null("/root/InventoryManager")
+	if inv != null and inv.has_method("get_hand_cards"):
+		var p_count: int = 0
+		for card in inv.get_hand_cards():
+			if card.has("is_passive") and card["is_passive"] == true:
+				p_count += 1
+		effective_max_mana = max(0, max_mana - p_count)
+		current_mana = min(current_mana, effective_max_mana)
+		mana_changed.emit(current_mana, max_mana, effective_max_mana)
 
 func _process(delta: float) -> void:
 	# Tick cooldown das cartas de mão
@@ -93,14 +106,27 @@ func take_damage(amount: int = 1) -> void:
 		# Verifica Segunda Chance na mão
 		var inv: Node = get_node_or_null("/root/InventoryManager")
 		if inv != null and inv.has_method("has_passive_in_hand") and inv.has_passive_in_hand("If all hearts are over, refill half"):
-			current_hearts = 3
-			inv.remove_hand_card_by_effect("If all hearts are over, refill half")
-			print("[PlayerStats] Segunda Chance ativada! Corações restaurados para 3.")
-			# Aviso na HUD
-			var player: Node = get_tree().get_first_node_in_group("player")
-			if player != null and player.has_method("show_hud_message"):
-				player.show_hud_message("Segunda Chance ativada!", Color(1.0, 0.85, 0.3))
-			return
+			# Encontra a carta de Segunda Chance e verifica cooldown
+			var hand: Array = inv.get_hand_cards() if inv.has_method("get_hand_cards") else []
+			var sc_index: int = -1
+			for i in range(hand.size()):
+				if hand[i].get("is_passive", false) and hand[i].get("effect", "") == "If all hearts are over, refill half":
+					if hand[i].get("current_cooldown", 0.0) > 0.0:
+						# Está em cooldown: não ativa, segue dano normal
+						current_hearts -= amount
+						return
+					sc_index = i
+					break
+
+			if sc_index >= 0:
+				current_hearts = 2  # Preenche 2 corações
+				inv.set_hand_card_cooldown(sc_index, 30.0)  # Cooldown de 30s
+				print("[PlayerStats] Segunda Chance ativada! Corações restaurados para 2. Cooldown: 30s.")
+				# Aviso na HUD
+				var player: Node = get_tree().get_first_node_in_group("player")
+				if player != null and player.has_method("show_hud_message"):
+					player.show_hud_message("Segunda Chance ativada!", Color(1.0, 0.85, 0.3))
+				return
 	current_hearts -= amount
 
 func heal(amount: int = 1) -> void:

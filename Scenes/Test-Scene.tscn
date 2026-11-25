@@ -1,4 +1,4 @@
-[gd_scene load_steps=213 format=3 uid="uid://bea20r7wg2f50"]
+[gd_scene load_steps=215 format=3 uid="uid://bea20r7wg2f50"]
 
 [ext_resource type="PackedScene" path="res://Space_Biology_Game/Prefabs/Player.tscn" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://e3qik8x0ukse" path="res://Space_Biology_Game/Assets/Trees/bush_summer_2.png" id="2_e02ra"]
@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://lxmfxarcx6a0" path="res://Space_Biology_Game/Assets/Flowers/sunflower_summer_2.png" id="32_v3tf7"]
 [ext_resource type="Texture2D" uid="uid://dlc38bdtxck5h" path="res://Space_Biology_Game/Assets/Flowers/yellow_flowers_summer_1.png" id="33_4robn"]
 [ext_resource type="Texture2D" uid="uid://c1v0lkr6l0gyg" path="res://Space_Biology_Game/Assets/Flowers/red_flowers_summer_2.png" id="34_tg351"]
+[ext_resource type="Texture2D" uid="uid://de1lob13bkyo6" path="res://Space_Biology_Game/Assets/vecteezy_pixel-art-spellbook-with-magical-symbols_72636931.png" id="37_tg351"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0, 0.019607844, 0.1882353, 1)
@@ -829,6 +830,23 @@ shader_parameter/tint_color = Color(1, 1, 1, 1)
 shader_parameter/enable_y_billboard = true
 shader_parameter/x_tilt_factor = 0.5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0wnfi"]
+render_priority = 0
+shader = ExtResource("28_cmj26")
+shader_parameter/albedo_texture = ExtResource("37_tg351")
+shader_parameter/tint_color = Color(2.805782, 2.805782, 2.805782, 1)
+shader_parameter/enable_y_billboard = true
+shader_parameter/x_tilt_factor = 0.5
+shader_parameter/glow_color = Color(0, 0.23897253, 0.69842595, 1)
+shader_parameter/emission_energy = 10.0
+shader_parameter/rim_thickness = 0.018000000855
+shader_parameter/rim_intensity = 0.3570000169575
+shader_parameter/veins_scale = 1.365
+shader_parameter/veins_threshold = 0.0
+shader_parameter/veins_intensity = 0.1770000084075
+shader_parameter/veins_flow_speed = 2.355
+shader_parameter/pulse_speed = 1.025
+
 [node name="TestScene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -844,7 +862,9 @@ directional_shadow_mode = 0
 directional_shadow_fade_start = 0.616
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(0.6716687, 0, -0.74085164, 0, 1, 0, 0.74085164, 0, 0.6716687, 13.063642, 0.07830286, 14.330382)
+jump_velocity = 5.6
+double_jump_multiplier = 1.25
 
 [node name="Terrain_CSG" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -873,13 +893,13 @@ rings = 14
 material = SubResource("StandardMaterial3D_grass")
 
 [node name="Plateau" type="CSGBox3D" parent="Terrain_CSG"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8857434, -28)
-size = Vector3(20, 3, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3974397, -28)
+size = Vector3(20, 2.8476563, 16)
 material = SubResource("StandardMaterial3D_rock")
 
 [node name="Lab" type="CSGBox3D" parent="Terrain_CSG"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.475743, -24.64069)
-size = Vector3(5.4938965, 3, 5.9228516)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1082692, -12.006312)
+size = Vector3(5.4938965, 2.3525696, 3.182251)
 material = SubResource("StandardMaterial3D_4robn")
 
 [node name="LabArea" type="Area3D" parent="Terrain_CSG/Lab" groups=["lab"]]
@@ -888,12 +908,32 @@ material = SubResource("StandardMaterial3D_4robn")
 shape = SubResource("SphereShape3D_lab_detect")
 
 [node name="Plateau2" type="CSGBox3D" parent="Terrain_CSG"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.284964, -0.16211843, -28)
-size = Vector3(3.1206055, 3, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.284964, 0.060554743, -28)
+size = Vector3(3.1206055, 2.7254639, 16)
+material = SubResource("StandardMaterial3D_rock")
+
+[node name="Plateau3" type="CSGBox3D" parent="Terrain_CSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.768442, 0.67605495, -8.008671)
+size = Vector3(3.1206055, 2.7254639, 2.6577148)
+material = SubResource("StandardMaterial3D_rock")
+
+[node name="Plateau4" type="CSGBox3D" parent="Terrain_CSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.768442, 1.658422, -5.5091577)
+size = Vector3(3.1206055, 4.430893, 2.6577148)
+material = SubResource("StandardMaterial3D_rock")
+
+[node name="Plateau5" type="CSGBox3D" parent="Terrain_CSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.768442, 2.8680406, -3.110046)
+size = Vector3(3.1206055, 5.8386517, 2.6577148)
+material = SubResource("StandardMaterial3D_rock")
+
+[node name="Plateau6" type="CSGBox3D" parent="Terrain_CSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.768442, 5.8815975, 14.635265)
+size = Vector3(15.798828, 1.6170797, 12.833008)
 material = SubResource("StandardMaterial3D_rock")
 
 [node name="Ramp_To_Plateau" type="CSGBox3D" parent="Terrain_CSG"]
-transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 28.642216, 6.621582, -32.38581)
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 28.642216, 6.978573, -32.38581)
 size = Vector3(38.895996, 1.2, 6)
 material = SubResource("StandardMaterial3D_path")
 
@@ -912,6 +952,13 @@ sides = 20
 [node name="ObservationTower" type="CSGCylinder3D" parent="Terrain_CSG"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.953983, 6.117676, -32.30227)
 radius = 4.0
+height = 12.235352
+sides = 16
+material = SubResource("StandardMaterial3D_rock")
+
+[node name="ObservationTower2" type="CSGCylinder3D" parent="Terrain_CSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.03886, 6.117676, -14.849679)
+radius = 2.0
 height = 12.235352
 sides = 16
 material = SubResource("StandardMaterial3D_rock")
@@ -1189,6 +1236,16 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("4_fiik7")
 
+[node name="Apple18" type="Sprite3D" parent="Trees Biome1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.465538, 2.9909203, 65.043274)
+material_override = SubResource("ShaderMaterial_tg351")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("4_fiik7")
+
 [node name="Apple5" type="Sprite3D" parent="Trees Biome1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.051826, 2.9909203, 2.6817017)
 material_override = SubResource("ShaderMaterial_tg351")
@@ -1404,6 +1461,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.63886, 2.9909203, 68.1123
 material_override = SubResource("ShaderMaterial_sg0b5")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("5_gsfct")
+
+[node name="cherry18" type="Sprite3D" parent="Trees Biome1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2785425, 5.4777894, 80.87112)
+material_override = SubResource("ShaderMaterial_sg0b5")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.012
 billboard = 2
 shaded = true
 alpha_cut = 2
@@ -2855,7 +2922,7 @@ alpha_cut = 2
 texture = ExtResource("6_jcxrx")
 
 [node name="coco27" type="Sprite3D" parent="Trees Biome2/coconut"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.72068, 2.5165918, 9.693899)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.089668, 2.5165918, 8.072157)
 material_override = SubResource("ShaderMaterial_pkhnk")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.005
@@ -3287,10 +3354,9 @@ alpha_cut = 2
 texture = ExtResource("3_ijaws")
 
 [node name="tree23" type="Sprite3D" parent="Trees Biome2/tree"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.219727, 10.963027, -47.690643)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.219727, 13.353194, -47.690643)
 material_override = SubResource("ShaderMaterial_4robn")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
-pixel_size = 0.006
 billboard = 2
 shaded = true
 alpha_cut = 2
@@ -3318,6 +3384,16 @@ texture = ExtResource("3_ijaws")
 
 [node name="tree4" type="Sprite3D" parent="Trees Biome2/tree"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.946087, 2.9909203, 11.09552)
+material_override = SubResource("ShaderMaterial_4robn")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("3_ijaws")
+
+[node name="tree25" type="Sprite3D" parent="Trees Biome2/tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.810593, 2.9909203, 11.730461)
 material_override = SubResource("ShaderMaterial_4robn")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.006
@@ -4011,6 +4087,23 @@ script = ExtResource("13_4robn")
 plant_name = "Fern G"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG/CollectArea"]
+shape = SubResource("SphereShape3D_qtnxr")
+
+[node name="fernG36" type="Sprite3D" parent="Trees Biome2/ferns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.268625, 1.2573556, 30.399178)
+material_override = SubResource("ShaderMaterial_cb2bs")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.003
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("11_4robn")
+
+[node name="CollectArea" type="Area3D" parent="Trees Biome2/ferns/fernG36" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Fern G"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trees Biome2/ferns/fernG36/CollectArea"]
 shape = SubResource("SphereShape3D_qtnxr")
 
 [node name="fernG35" type="Sprite3D" parent="Trees Biome2/ferns"]
@@ -5087,10 +5180,10 @@ alpha_cut = 2
 texture = ExtResource("7_xhvqv")
 
 [node name="Pine3" type="Sprite3D" parent="Trees Biome3/Pines"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5731964, 2.9909184, 18.19471)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3804245, 5.749811, 18.19471)
 material_override = SubResource("ShaderMaterial_wc5ag")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
-pixel_size = 0.006
+pixel_size = 0.012
 billboard = 2
 shaded = true
 alpha_cut = 2
@@ -5578,6 +5671,16 @@ texture = ExtResource("7_xhvqv")
 
 [node name="Pine69" type="Sprite3D" parent="Trees Biome3/Pines"]
 transform = Transform3D(0.9727557, 0, 0.2318328, 0, 1, 0, -0.2318328, 0, 0.9727557, 50.598534, 2.9909184, -37.25982)
+material_override = SubResource("ShaderMaterial_wc5ag")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("7_xhvqv")
+
+[node name="Pine70" type="Sprite3D" parent="Trees Biome3/Pines"]
+transform = Transform3D(0.9727557, 0, 0.2318328, 0, 1, 0, -0.2318328, 0, 0.9727557, 39.693737, 2.9909194, -43.56759)
 material_override = SubResource("ShaderMaterial_wc5ag")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.006
@@ -6281,6 +6384,16 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource("8_m1vhc")
 
+[node name="Cry31" type="Sprite3D" parent="Trees Biome3/Crys"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.604828, 2.9909146, -47.580284)
+material_override = SubResource("ShaderMaterial_rsnki")
+modulate = Color(10.307568, 8.745102, 16.557436, 1)
+pixel_size = 0.006
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource("8_m1vhc")
+
 [node name="Cry20" type="Sprite3D" parent="Trees Biome3/Crys"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.08407, 2.9909146, -9.264774)
 material_override = SubResource("ShaderMaterial_rsnki")
@@ -6312,10 +6425,10 @@ alpha_cut = 2
 texture = ExtResource("8_m1vhc")
 
 [node name="Cry30" type="Sprite3D" parent="Trees Biome3/Crys"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.40751, 13.2068205, 16.551292)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.40751, 15.980867, 16.551292)
 material_override = SubResource("ShaderMaterial_rsnki")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
-pixel_size = 0.006
+pixel_size = 0.012
 billboard = 2
 shaded = true
 alpha_cut = 2
@@ -6494,7 +6607,7 @@ is_harvestable = false
 shape = SubResource("SphereShape3D_k5sdo")
 
 [node name="RoseSpecial" type="Sprite3D" parent="Flowers Biome1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6645713, 1.0140573, -31.685757)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.77044, 9.560753, -31.685757)
 material_override = SubResource("ShaderMaterial_t0f2h")
 modulate = Color(0.72067994, 0.7052, 0.86, 1)
 pixel_size = 0.002
@@ -6732,7 +6845,7 @@ shape = SubResource("SphereShape3D_jt5v7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.618668, -3.8146973e-06, -27.444174)
 
 [node name="SunFSpecial" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.769272, 10.504172, 98.01184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.604309, 13.244791, -4.91691)
 material_override = SubResource("ShaderMaterial_48a34")
 modulate = Color(0.72067994, 0.7052, 0.86, 1)
 pixel_size = 0.002
@@ -6751,7 +6864,7 @@ is_harvestable = false
 shape = SubResource("SphereShape3D_f8uh0")
 
 [node name="yelloSpecial" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.840992, 13.202778, -4.8346004)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.38597, 7.7013683, 42.472527)
 material_override = SubResource("ShaderMaterial_kxn87")
 modulate = Color(0.72067994, 0.7052, 0.86, 1)
 pixel_size = 0.002
@@ -6767,25 +6880,6 @@ rarity = "Rara"
 is_harvestable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/yelloSpecial/CollectArea"]
-shape = SubResource("SphereShape3D_bvbi7")
-
-[node name="yelloSpecial2" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.820934, 3.3014545, 1.1535435)
-material_override = SubResource("ShaderMaterial_kxn87")
-modulate = Color(0.72067994, 0.7052, 0.86, 1)
-pixel_size = 0.002
-billboard = 2
-double_sided = false
-alpha_cut = 2
-texture = ExtResource("33_4robn")
-
-[node name="CollectArea" type="Area3D" parent="Flowers Biome2/yelloSpecial2" groups=["collectible"]]
-script = ExtResource("13_4robn")
-plant_name = "Yello Special"
-rarity = "Rara"
-is_harvestable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/yelloSpecial2/CollectArea"]
 shape = SubResource("SphereShape3D_bvbi7")
 
 [node name="SunF" type="Sprite3D" parent="Flowers Biome2"]
@@ -7077,7 +7171,7 @@ is_harvestable = false
 shape = SubResource("SphereShape3D_cq68o")
 
 [node name="Yello" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.644684, 1.0140572, -3.6086903)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.644684, 1.0140572, -0.4819603)
 material_override = SubResource("ShaderMaterial_a1f2p")
 modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
 pixel_size = 0.002
@@ -7328,24 +7422,6 @@ is_harvestable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello14/CollectArea"]
 shape = SubResource("SphereShape3D_qe164")
 
-[node name="Yello15" type="Sprite3D" parent="Flowers Biome2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.4906, 3.3527737, 5.2941647)
-material_override = SubResource("ShaderMaterial_a1f2p")
-modulate = Color(0.7385151, 0.6795038, 1.269618, 1)
-pixel_size = 0.002
-billboard = 2
-shaded = true
-alpha_cut = 2
-texture = ExtResource("33_4robn")
-
-[node name="CollectArea" type="Area3D" parent="Flowers Biome2/Yello15" groups=["collectible"]]
-script = ExtResource("13_4robn")
-plant_name = "Yello"
-is_harvestable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome2/Yello15/CollectArea"]
-shape = SubResource("SphereShape3D_qe164")
-
 [node name="Flowers Biome3" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.316986, -1.9073486e-06, 42.846577)
 
@@ -7385,6 +7461,25 @@ rarity = "Rara"
 is_harvestable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriSpecial/CollectArea"]
+shape = SubResource("SphereShape3D_cgtit")
+
+[node name="LiriSpecial2" type="Sprite3D" parent="Flowers Biome3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.30873, 11.25743, 18.905529)
+material_override = SubResource("ShaderMaterial_dtofv")
+modulate = Color(0.72067994, 0.7052, 0.86, 1)
+pixel_size = 0.002
+billboard = 2
+double_sided = false
+alpha_cut = 2
+texture = ExtResource("31_m1vhc")
+
+[node name="CollectArea" type="Area3D" parent="Flowers Biome3/LiriSpecial2" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Liri Special"
+rarity = "Rara"
+is_harvestable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Flowers Biome3/LiriSpecial2/CollectArea"]
 shape = SubResource("SphereShape3D_cgtit")
 
 [node name="LiriumBG" type="Sprite3D" parent="Flowers Biome3"]
@@ -7913,7 +8008,7 @@ alpha_cut = 2
 texture = ExtResource("4_2x7i2")
 
 [node name="RockWood5" type="Sprite3D" parent="Others Biome1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.754136, 1.4952558, 27.472725)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.351072, 1.4952558, 27.472725)
 material_override = SubResource("ShaderMaterial_kf023")
 modulate = Color(10.307568, 8.745102, 16.557436, 1)
 pixel_size = 0.003
@@ -9757,3 +9852,24 @@ billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource("27_bkayi")
+
+[node name="Book" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.035095, 12.829432, -14.742972)
+material_override = SubResource("ShaderMaterial_0wnfi")
+modulate = Color(0.72067994, 0.7052, 0.86, 1)
+pixel_size = 0.0002
+billboard = 2
+double_sided = false
+alpha_cut = 2
+texture = ExtResource("37_tg351")
+
+[node name="CollectArea" type="Area3D" parent="Book" groups=["collectible"]]
+script = ExtResource("13_4robn")
+plant_name = "Dicionário"
+description = "Dicionário de cartas"
+rarity = "Rara"
+unlocks_dictionary = true
+respawn_time = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Book/CollectArea"]
+shape = SubResource("SphereShape3D_f8uh0")

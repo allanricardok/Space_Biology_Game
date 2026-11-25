@@ -1,8 +1,8 @@
 extends Node
 
-## Autoload / Gerenciador Global de Inventário Biológico
-## Cada item coletado ou carta não equipada ocupa 1 espaço individual no inventário.
-## Mão de Cartas: array separado com limite de 5 cartas (não ocupam os 10 espaços normais).
+## Autoload / Gerenciador Global de Inventario Biologico
+## Cada item coletado ou carta nao equipada ocupa 1 espaco individual no inventario.
+## Mao de Cartas: array separado com limite de 5 cartas (nao ocupam os 10 espacos normais).
 
 signal inventory_updated()
 signal sample_collected(sample_data: Dictionary)
@@ -15,13 +15,13 @@ const MAX_HAND_CARDS: int = 5
 
 @export var max_inventory_slots: int = BASE_MAX_SLOTS
 
-## Lista de itens normais no inventário
+## Lista de itens normais no inventario
 var items: Array[Dictionary] = []
 
-## Mão de Cartas equipadas (máximo 5)
+## Mao de Cartas equipadas (maximo 5)
 var hand_cards: Array[Dictionary] = []
 
-## Índice da carta selecionada na mão (0 a 4)
+## Indice da carta selecionada na mao (0 a 4)
 var selected_hand_index: int = 0:
 	set(val):
 		selected_hand_index = val
@@ -29,7 +29,173 @@ var selected_hand_index: int = 0:
 
 var _next_id: int = 1
 
-## ─── Slots Efetivos (Expansão Botânica) ───────────────────────────────────────
+## Flag de dicionário desbloqueado
+var dictionary_unlocked: bool = false
+
+func get_dictionary_unlocked() -> bool:
+	return dictionary_unlocked
+
+func set_dictionary_unlocked(value: bool) -> void:
+	dictionary_unlocked = value
+	if dictionary_unlocked:
+		print("[Inventario] Dicionario de Cartas desbloqueado!")
+		save_game()
+		var player: Node = get_tree().get_first_node_in_group("player")
+		if player != null and player.has_method("show_hud_message"):
+			player.show_hud_message("Dicionario de Cartas desbloqueado no Inventario [I]!", Color(1.0, 0.88, 0.35))
+
+## Save / Load
+const SAVE_PATH: String = "user://savegame.json"
+
+func _ready() -> void:
+	load_game()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("reset_save"):
+		reset_save()
+
+func save_game() -> void:
+	var save_data: Dictionary = {}
+
+	var save_items: Array[Dictionary] = []
+	for item in items:
+		var clean: Dictionary = {}
+		for key in item.keys():
+			var val: Variant = item[key]
+			if typeof(val) in [TYPE_NIL, TYPE_BOOL, TYPE_INT, TYPE_FLOAT, TYPE_STRING]:
+				clean[key] = val
+			elif typeof(val) == TYPE_VECTOR2:
+				clean[key] = str(val)
+			elif typeof(val) == TYPE_VECTOR3:
+				clean[key] = str(val)
+			elif typeof(val) == TYPE_COLOR:
+				clean[key] = str(val)
+		save_items.append(clean)
+	save_data["items"] = save_items
+
+	var save_hand: Array[Dictionary] = []
+	for card in hand_cards:
+		var clean_card: Dictionary = {}
+		for key in card.keys():
+			var val: Variant = card[key]
+			if typeof(val) in [TYPE_NIL, TYPE_BOOL, TYPE_INT, TYPE_FLOAT, TYPE_STRING]:
+				clean_card[key] = val
+			elif typeof(val) == TYPE_VECTOR2:
+				clean_card[key] = str(val)
+			elif typeof(val) == TYPE_VECTOR3:
+				clean_card[key] = str(val)
+			elif typeof(val) == TYPE_COLOR:
+				clean_card[key] = str(val)
+		clean_card["current_cooldown"] = 0.0
+		save_hand.append(clean_card)
+	save_data["hand_cards"] = save_hand
+	save_data["selected_hand_index"] = selected_hand_index
+	save_data["dictionary_unlocked"] = dictionary_unlocked
+
+	var stats: Node = get_node_or_null("/root/PlayerStats")
+	if stats != null:
+		save_data["current_hearts"] = int(stats.current_hearts)
+		save_data["current_mana"] = int(stats.current_mana)
+	else:
+		save_data["current_hearts"] = 5
+		save_data["current_mana"] = 5
+
+	var json_str: String = JSON.stringify(save_data)
+	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file != null:
+		file.store_string(json_str)
+		file.close()
+		print("[Save] Jogo salvo em " + SAVE_PATH)
+
+func load_game() -> void:
+	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file == null:
+		print("[Save] Nenhum save encontrado. Iniciando novo jogo.")
+		return
+
+	var json_str: String = file.get_as_text()
+	file.close()
+
+	var result: Variant = JSON.parse_string(json_str)
+	if typeof(result) != TYPE_DICTIONARY:
+		print("[Save] Erro ao ler save: formato invalido.")
+		return
+
+	var save_data: Dictionary = result
+
+	items.clear()
+	var save_items: Array = save_data.get("items", [])
+	for item in save_items:
+		if item.has("id") and int(item["id"]) >= _next_id:
+			_next_id = int(item["id"]) + 1
+		items.append(item)
+
+	hand_cards.clear()
+	var save_hand: Array = save_data.get("hand_cards", [])
+	for card in save_hand:
+		if card.has("id") and int(card["id"]) >= _next_id:
+			_next_id = int(card["id"]) + 1
+		if card.has("mana_cost"):
+			card["mana_cost"] = int(card["mana_cost"])
+		if card.has("cooldown"):
+			card["cooldown"] = float(card["cooldown"])
+		if card.has("current_cooldown"):
+			card["current_cooldown"] = float(card["current_cooldown"])
+		if card.has("is_passive"):
+			card["is_passive"] = bool(card["is_passive"])
+		if card.has("equipped"):
+			card["equipped"] = bool(card["equipped"])
+		hand_cards.append(card)
+
+	selected_hand_index = int(save_data.get("selected_hand_index", 0))
+	if selected_hand_index >= hand_cards.size() and hand_cards.size() > 0:
+		selected_hand_index = hand_cards.size() - 1
+
+	if save_data.has("dictionary_unlocked"):
+		dictionary_unlocked = bool(save_data["dictionary_unlocked"])
+
+	var stats: Node = get_node_or_null("/root/PlayerStats")
+	if stats != null:
+		if save_data.has("current_hearts"):
+			stats.current_hearts = int(save_data["current_hearts"])
+		if save_data.has("current_mana"):
+			stats.current_mana = int(save_data["current_mana"])
+
+	# Garante recálculo e atualização de UI após todos os Autoloads e HUD inicializarem
+	_apply_loaded_state.call_deferred()
+	print("[Save] Jogo carregado de " + SAVE_PATH)
+
+func _apply_loaded_state() -> void:
+	recalculate_passive_effects()
+	inventory_updated.emit()
+	hand_updated.emit()
+
+func reset_save() -> void:
+	var dir: DirAccess = DirAccess.open("user://")
+	if dir != null:
+		if dir.file_exists("savegame.json"):
+			dir.remove_absolute("savegame.json")
+			print("[Save] Save deletado.")
+		else:
+			print("[Save] Nenhum save para deletar.")
+
+	items.clear()
+	hand_cards.clear()
+	selected_hand_index = 0
+	dictionary_unlocked = false
+	_next_id = 1
+
+	var stats: Node = get_node_or_null("/root/PlayerStats")
+	if stats != null:
+		stats.current_hearts = 5
+		stats.current_mana = 5
+
+	recalculate_passive_effects()
+	inventory_updated.emit()
+	hand_updated.emit()
+	print("[Save] Estado resetado para inicial.")
+
+## Slots Efetivos (Expansao Botanica)
 func get_effective_max_slots() -> int:
 	var expansions: int = 0
 	for card in hand_cards:
@@ -37,7 +203,7 @@ func get_effective_max_slots() -> int:
 			expansions += 1
 	return BASE_MAX_SLOTS + expansions * 10
 
-## ─── Mana Efetiva (passivas na mão reservam 1 slot cada) ─────────────────────
+## Mana Efetiva (passivas na mao reservam 1 slot cada)
 func count_passive_in_hand() -> int:
 	var count: int = 0
 	for card in hand_cards:
@@ -46,14 +212,12 @@ func count_passive_in_hand() -> int:
 	return count
 
 func recalculate_passive_effects() -> void:
-	# Slots de inventário
 	max_inventory_slots = get_effective_max_slots()
-	# Mana efetiva
 	var stats: Node = get_node_or_null("/root/PlayerStats")
-	if stats != null:
+	if stats != null and stats.has_method("update_effective_mana"):
 		stats.update_effective_mana(count_passive_in_hand())
 
-## ─── Verificações de espaço ──────────────────────────────────────────────────
+## Verificacoes de espaco
 func can_add_item(_plant_name: String = "") -> bool:
 	return items.size() < max_inventory_slots
 
@@ -63,13 +227,13 @@ func is_full() -> bool:
 func get_used_slots() -> int:
 	return items.size()
 
-## ─── Adiciona Amostra Coletada ───────────────────────────────────────────────
+## Adiciona Amostra Coletada
 func add_sample(plant_name: String, rarity: String, description: String, is_harvestable: bool) -> bool:
 	if is_full():
-		print("[Inventário] AVISO: Inventário cheio (%d/%d)!" % [items.size(), max_inventory_slots])
+		print("[Inventario] AVISO: Inventario cheio (%d/%d)!" % [items.size(), max_inventory_slots])
 		return false
 
-	var category: String = "Material" if plant_name.to_lower().contains("fern") else "Essência"
+	var category: String = "Material" if plant_name.to_lower().contains("fern") else "Essencia"
 	var item_data: Dictionary = {
 		"id": _next_id,
 		"plant_name": plant_name,
@@ -83,15 +247,16 @@ func add_sample(plant_name: String, rarity: String, description: String, is_harv
 	items.append(item_data)
 	sample_collected.emit(item_data)
 	inventory_updated.emit()
-	print("[Inventário] Item adicionado: '%s' (%s) | %d/%d" % [plant_name, category, items.size(), max_inventory_slots])
+	save_game()
+	print("[Inventario] Item adicionado: '%s' (%s) | %d/%d" % [plant_name, category, items.size(), max_inventory_slots])
 	return true
 
-## ─── Adiciona Carta Criada ────────────────────────────────────────────────────
-func add_card(card_name: String, effect: String, mana_cost: int, rarity: String = "Mágica", is_passive: bool = false, cooldown: float = 0.0) -> Dictionary:
+## Adiciona Carta Criada
+func add_card(card_name: String, effect: String, mana_cost: int, rarity: String = "Magica", is_passive: bool = false, cooldown: float = 0.0) -> Dictionary:
 	var can_equip: bool = hand_cards.size() < MAX_HAND_CARDS
 
 	if not can_equip and is_full():
-		print("[Inventário] AVISO: Mão cheia e inventário cheio! '%s' não adicionada." % card_name)
+		print("[Inventario] AVISO: Mao cheia e inventario cheio! '%s' nao adicionada." % card_name)
 		return {}
 
 	var card_data: Dictionary = {
@@ -115,16 +280,18 @@ func add_card(card_name: String, effect: String, mana_cost: int, rarity: String 
 		hand_cards.append(card_data)
 		recalculate_passive_effects()
 		hand_updated.emit()
-		print("[Inventário] Carta equipada na mão: '%s' (%d/5)" % [card_name, hand_cards.size()])
+		save_game()
+		print("[Inventario] Carta equipada na mao: '%s' (%d/5)" % [card_name, hand_cards.size()])
 	else:
 		items.append(card_data)
 		inventory_updated.emit()
-		print("[Inventário] Carta no inventário: '%s' (%d/10)" % [card_name, items.size()])
+		save_game()
+		print("[Inventario] Carta no inventario: '%s' (%d/10)" % [card_name, items.size()])
 
 	sample_collected.emit(card_data)
 	return card_data
 
-## ─── Equipa Carta da mochila → mão ──────────────────────────────────────────
+## Equipa Carta da mochila -> mao
 func equip_card_to_hand(item_id: int) -> bool:
 	if hand_cards.size() >= MAX_HAND_CARDS:
 		return false
@@ -138,11 +305,12 @@ func equip_card_to_hand(item_id: int) -> bool:
 			recalculate_passive_effects()
 			inventory_updated.emit()
 			hand_updated.emit()
+			save_game()
 			return true
 
 	return false
 
-## ─── Desequipa Carta da mão → mochila ───────────────────────────────────────
+## Desequipa Carta da mao -> mochila
 func unequip_card_from_hand(item_id: int) -> bool:
 	if is_full():
 		return false
@@ -158,11 +326,12 @@ func unequip_card_from_hand(item_id: int) -> bool:
 			recalculate_passive_effects()
 			hand_updated.emit()
 			inventory_updated.emit()
+			save_game()
 			return true
 
 	return false
 
-## ─── Remove item por ID (mochila ou mão) ────────────────────────────────────
+## Remove item por ID (mochila ou mao)
 func remove_item_by_id(item_id: int) -> bool:
 	for i in range(items.size()):
 		if items[i].get("id") == item_id:
@@ -170,6 +339,8 @@ func remove_item_by_id(item_id: int) -> bool:
 			items.remove_at(i)
 			item_removed.emit(removed)
 			inventory_updated.emit()
+			save_game()
+			print("[Inventario] Item removido: '%s'" % removed.get("plant_name", "?"))
 			return true
 
 	for i in range(hand_cards.size()):
@@ -181,11 +352,12 @@ func remove_item_by_id(item_id: int) -> bool:
 			item_removed.emit(removed_card)
 			recalculate_passive_effects()
 			hand_updated.emit()
+			save_game()
 			return true
 
 	return false
 
-## ─── Remove primeira carta com efeito específico da mão (ex: Segunda Chance) ─
+## Remove primeira carta com efeito especifico da mao (ex: Segunda Chance)
 func remove_hand_card_by_effect(effect: String) -> bool:
 	for i in range(hand_cards.size()):
 		if hand_cards[i].get("effect", "") == effect:
@@ -196,17 +368,29 @@ func remove_hand_card_by_effect(effect: String) -> bool:
 			item_removed.emit(removed)
 			recalculate_passive_effects()
 			hand_updated.emit()
+			save_game()
+			print("[Inventario] Carta removida por efeito: '%s'" % removed.get("plant_name", "?"))
 			return true
 	return false
 
-## ─── Verifica se carta passiva com efeito X está na mão ─────────────────────
+## Verifica se carta passiva com efeito X esta na mao
 func has_passive_in_hand(effect: String) -> bool:
 	for card in hand_cards:
 		if card.get("is_passive", false) and card.get("effect", "") == effect:
 			return true
 	return false
 
-## ─── Atualiza cooldown das cartas ativas da mão (chamado em _process) ────────
+## Verifica se ja existe uma carta com esse nome no inventario ou na mao
+func has_card_owned(card_name: String) -> bool:
+	for item in items:
+		if item.get("plant_name", "") == card_name:
+			return true
+	for card in hand_cards:
+		if card.get("plant_name", "") == card_name:
+			return true
+	return false
+
+## Atualiza cooldown das cartas ativas da mao (chamado em _process)
 func tick_cooldowns(delta: float) -> void:
 	var updated: bool = false
 	for i in range(hand_cards.size()):
@@ -216,12 +400,12 @@ func tick_cooldowns(delta: float) -> void:
 	if updated:
 		hand_updated.emit()
 
-## ─── Acessa um dado de carta na mão por índice ───────────────────────────────
+## Acessa um dado de carta na mao por indice
 func set_hand_card_cooldown(idx: int, value: float) -> void:
 	if idx >= 0 and idx < hand_cards.size():
 		hand_cards[idx]["current_cooldown"] = value
 
-## ─── Getters ─────────────────────────────────────────────────────────────────
+## Getters
 func get_items() -> Array[Dictionary]:
 	return items
 

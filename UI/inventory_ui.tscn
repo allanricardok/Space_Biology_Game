@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3hudinven001"]
 
-[ext_resource type="Script" path="res://Space_Biology_Game/UI/inventory_ui.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://ckvbr3f6cdl0b" path="res://Space_Biology_Game/UI/inventory_ui.gd" id="1_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.0784314, 0.109804, 0.141176, 0.960784)
@@ -56,6 +56,20 @@ custom_minimum_size = Vector2(85, 32)
 layout_mode = 2
 text = "✕ Fechar"
 
+[node name="TabBox" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TabInventory" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+text = "Inventário"
+
+[node name="TabDictionary" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabBox"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+text = "Dicionário de Cartas"
+
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -66,6 +80,18 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="ItemsContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="DictionaryScrollContainer" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="DictionaryItemsContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/DictionaryScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
